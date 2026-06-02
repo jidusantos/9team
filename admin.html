@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>9TEAM — Admin</title>
+<style>
+:root{
+  --bg:#111827;--bg2:#1A2540;--bg3:#243256;
+  --blue:#3B6EF0;--purple:#9B4FD8;
+  --grad:linear-gradient(135deg,#3B6EF0 0%,#9B4FD8 100%);
+  --text:#F0F4FF;--text2:#A8BCDC;--text3:#6A7E9E;
+  --border:rgba(100,130,240,0.2);--card:#192240;
+  --red:#e05555;--green:#3ecf8e;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,sans-serif;font-size:15px;min-height:100vh}
+
+/* LOGIN */
+#loginScreen{display:flex;align-items:center;justify-content:center;min-height:100vh;padding:24px}
+.login-box{background:var(--bg2);border:1px solid var(--border);border-radius:20px;padding:52px 40px;width:100%;max-width:360px;text-align:center}
+.login-logo{font-size:30px;font-weight:900;letter-spacing:6px;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:4px}
+.login-sub{color:var(--text3);font-size:13px;margin-bottom:40px;letter-spacing:.5px}
+.pw-wrap{position:relative;margin-bottom:12px}
+.pw-input{width:100%;background:rgba(255,255,255,0.05);border:1.5px solid var(--border);color:var(--text);font-size:22px;padding:14px 16px;border-radius:12px;outline:none;transition:border-color .2s;text-align:center;letter-spacing:8px}
+.pw-input:focus{border-color:var(--blue)}
+.pw-input.err{border-color:var(--red);animation:shake .35s ease}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+.login-btn{width:100%;background:var(--grad);border:none;color:#fff;font-size:15px;font-weight:800;letter-spacing:2px;padding:15px;border-radius:12px;cursor:pointer;transition:opacity .2s;margin-top:4px}
+.login-btn:hover{opacity:.88}
+.login-err{color:var(--red);font-size:13px;margin-top:10px;min-height:18px}
+
+/* HEADER */
+header{background:rgba(10,10,28,.92);border-bottom:1px solid var(--border);padding:0 28px;display:flex;align-items:center;justify-content:space-between;height:60px;position:sticky;top:0;z-index:100;backdrop-filter:blur(16px)}
+.hd-logo{font-size:17px;font-weight:900;letter-spacing:5px;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hd-tag{color:var(--text3);font-size:11px;font-weight:600;letter-spacing:2px;margin-left:8px;-webkit-text-fill-color:var(--text3)}
+.hd-actions{display:flex;gap:8px}
+.btn-sm{background:rgba(255,255,255,0.05);border:1px solid var(--border);color:var(--text2);padding:7px 14px;border-radius:8px;font-size:13px;cursor:pointer;transition:all .2s;font-weight:600;letter-spacing:.3px}
+.btn-sm:hover{border-color:rgba(100,130,240,.5);color:var(--text)}
+.btn-sm.danger:hover{border-color:var(--red);color:var(--red)}
+
+/* MAIN */
+main{max-width:860px;margin:0 auto;padding:32px 24px}
+.top-bar{display:flex;gap:10px;margin-bottom:28px;align-items:center}
+.search-inp{flex:1;background:rgba(255,255,255,0.05);border:1px solid var(--border);color:var(--text);font-size:15px;padding:11px 16px;border-radius:10px;outline:none}
+.search-inp:focus{border-color:var(--blue)}
+.btn-add{background:var(--grad);border:none;color:#fff;font-size:14px;font-weight:800;letter-spacing:.5px;padding:11px 20px;border-radius:10px;cursor:pointer;white-space:nowrap;transition:opacity .2s}
+.btn-add:hover{opacity:.85}
+
+/* PRODUCT LIST */
+.prod-list{display:flex;flex-direction:column;gap:8px}
+.prod-row{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:12px 16px;display:flex;align-items:center;gap:14px;transition:border-color .2s}
+.prod-row:hover{border-color:rgba(100,130,240,.4)}
+.prod-thumb{width:52px;height:52px;border-radius:8px;object-fit:cover;background:var(--bg3);flex-shrink:0}
+.prod-info{flex:1;min-width:0}
+.prod-name{font-weight:700;font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.prod-meta{color:var(--text3);font-size:12px;margin-top:2px}
+.prod-acts{display:flex;gap:7px;flex-shrink:0}
+.btn-edit{background:rgba(59,110,240,.15);border:1px solid rgba(59,110,240,.3);color:#7aa3ff;padding:7px 13px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;transition:all .2s}
+.btn-edit:hover{background:rgba(59,110,240,.28)}
+.btn-reset{background:rgba(255,255,255,0.05);border:1px solid var(--border);color:var(--text3);padding:7px 10px;border-radius:8px;font-size:13px;cursor:pointer;transition:all .2s}
+.btn-reset:hover{border-color:var(--red);color:var(--red)}
+.badge-custom{background:rgba(59,110,240,.18);border:1px solid rgba(59,110,240,.3);color:#7aa3ff;font-size:10px;font-weight:800;padding:2px 7px;border-radius:20px;letter-spacing:.5px;vertical-align:middle}
+.badge-new{background:rgba(62,207,142,.15);border:1px solid rgba(62,207,142,.3);color:var(--green);font-size:10px;font-weight:800;padding:2px 7px;border-radius:20px;letter-spacing:.5px;vertical-align:middle}
+
+/* MODAL */
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.72);backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:center;padding:16px;z-index:200}
+.modal{background:var(--bg2);border:1px solid var(--border);border-radius:20px;width:100%;max-width:720px;max-height:92vh;overflow-y:auto;padding:32px}
+.modal-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:28px}
+.modal-title{font-size:20px;font-weight:800}
+.btn-x{background:rgba(255,255,255,.06);border:1px solid var(--border);color:var(--text2);width:34px;height:34px;border-radius:50%;font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1;transition:all .2s;flex-shrink:0}
+.btn-x:hover{border-color:var(--red);color:var(--red)}
+
+.fg{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.fg-full{grid-column:1/-1}
+.flabel{font-size:11px;font-weight:800;letter-spacing:1px;color:var(--text3);text-transform:uppercase;display:block;margin-bottom:5px}
+.finput,.fselect,.ftextarea{width:100%;background:rgba(255,255,255,0.05);border:1px solid var(--border);color:var(--text);font-size:14px;padding:10px 13px;border-radius:9px;outline:none;transition:border-color .2s;font-family:inherit}
+.finput:focus,.ftextarea:focus{border-color:var(--blue)}
+.ftextarea{resize:vertical;min-height:70px;line-height:1.5}
+.fselect{background:var(--bg3);cursor:pointer}
+
+.toggle-row{display:flex;align-items:center;gap:10px;cursor:pointer;user-select:none;margin-top:2px}
+.toggle{width:42px;height:23px;background:var(--bg3);border-radius:12px;position:relative;transition:background .25s;flex-shrink:0;border:1px solid var(--border)}
+.toggle::after{content:'';position:absolute;width:17px;height:17px;background:#fff;border-radius:50%;top:2px;left:2px;transition:transform .25s}
+.toggle.on{background:var(--blue);border-color:var(--blue)}
+.toggle.on::after{transform:translateX(19px)}
+.toggle-label{font-size:14px;color:var(--text2)}
+
+.sec-title{font-size:11px;font-weight:800;letter-spacing:1px;color:var(--text3);text-transform:uppercase;margin:26px 0 14px;display:flex;align-items:center;gap:10px}
+.sec-title::after{content:'';flex:1;height:1px;background:var(--border)}
+
+/* ── IMAGE GRID ── */
+.imgs-grid{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:16px;min-height:20px}
+.img-item{position:relative;width:90px;cursor:grab}
+.img-item img{width:90px;height:90px;object-fit:cover;border-radius:8px;border:2px solid transparent;background:var(--bg3);display:block;transition:border-color .2s}
+.img-item.is-cover img{border-color:var(--blue)}
+.img-del{position:absolute;top:-7px;right:-7px;background:var(--red);border:none;color:#fff;width:22px;height:22px;border-radius:50%;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1;z-index:2}
+.img-move{position:absolute;bottom:22px;left:50%;transform:translateX(-50%);display:flex;gap:2px;opacity:0;transition:opacity .2s;z-index:2}
+.img-item:hover .img-move{opacity:1}
+.img-mv-btn{background:rgba(0,0,0,.7);border:none;color:#fff;width:20px;height:20px;border-radius:4px;font-size:12px;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.img-idx{text-align:center;font-size:11px;color:var(--text3);margin-top:4px}
+.img-item.is-cover .img-idx{color:var(--blue);font-weight:800}
+
+/* ── IMAGE ADD TABS ── */
+.img-add-box{background:rgba(255,255,255,.03);border:1.5px dashed rgba(100,130,240,.3);border-radius:12px;padding:18px}
+.img-tabs{display:flex;gap:0;margin-bottom:14px;border:1px solid var(--border);border-radius:8px;overflow:hidden}
+.img-tab{flex:1;background:transparent;border:none;color:var(--text3);font-size:13px;font-weight:700;padding:8px 12px;cursor:pointer;transition:all .2s;letter-spacing:.3px}
+.img-tab.active{background:var(--blue);color:#fff}
+
+/* Upload tab */
+.upload-zone{border:2px dashed rgba(100,130,240,.35);border-radius:10px;padding:28px 16px;text-align:center;cursor:pointer;transition:all .25s;position:relative}
+.upload-zone:hover,.upload-zone.drag{border-color:var(--blue);background:rgba(59,110,240,.07)}
+.upload-zone input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
+.upload-icon{font-size:32px;margin-bottom:8px}
+.upload-text{color:var(--text2);font-size:14px;font-weight:600}
+.upload-hint{color:var(--text3);font-size:12px;margin-top:4px}
+.upload-progress{margin-top:12px;display:none}
+.upload-bar-wrap{background:rgba(255,255,255,.08);border-radius:4px;height:6px;overflow:hidden;margin-bottom:6px}
+.upload-bar{background:var(--grad);height:100%;width:0;transition:width .2s;border-radius:4px}
+.upload-status{font-size:12px;color:var(--text3)}
+
+/* URL tab */
+.img-row{display:flex;gap:8px;align-items:stretch}
+.img-inp{flex:1;background:rgba(255,255,255,0.05);border:1px solid var(--border);color:var(--text);font-size:13px;padding:9px 12px;border-radius:8px;outline:none;font-family:inherit}
+.img-inp:focus{border-color:var(--blue)}
+.img-ext{background:var(--bg3);border:1px solid var(--border);color:var(--text);font-size:13px;padding:9px 10px;border-radius:8px;outline:none;cursor:pointer}
+.btn-add-img{background:var(--grad);border:none;color:#fff;font-size:13px;font-weight:800;padding:9px 14px;border-radius:8px;cursor:pointer;white-space:nowrap;transition:opacity .2s}
+.btn-add-img:hover{opacity:.85}
+.img-prev-wrap{margin-top:10px;display:none;align-items:center;gap:10px}
+.img-prev-wrap img{width:72px;height:72px;object-fit:cover;border-radius:8px;border:1px solid var(--border);background:var(--bg3)}
+.img-prev-url{font-size:11px;color:var(--text3);word-break:break-all;flex:1}
+.img-hint{font-size:12px;color:var(--text3);margin-top:10px;line-height:1.6}
+
+.modal-foot{display:flex;gap:10px;justify-content:flex-end;margin-top:28px;padding-top:20px;border-top:1px solid var(--border)}
+.btn-save{background:var(--grad);border:none;color:#fff;font-size:15px;font-weight:800;padding:12px 30px;border-radius:10px;cursor:pointer;transition:opacity .2s}
+.btn-save:hover{opacity:.85}
+.btn-cancel{background:rgba(255,255,255,.05);border:1px solid var(--border);color:var(--text2);font-size:15px;padding:12px 22px;border-radius:10px;cursor:pointer}
+.empty{text-align:center;color:var(--text3);padding:48px 0;font-size:15px}
+
+/* TOAST */
+#toast{position:fixed;bottom:24px;right:24px;background:var(--bg2);border:1px solid rgba(62,207,142,.4);color:var(--green);padding:12px 22px;border-radius:10px;font-weight:700;font-size:14px;box-shadow:0 8px 28px rgba(0,0,0,.35);transform:translateY(80px);opacity:0;transition:all .3s;z-index:300;pointer-events:none}
+#toast.show{transform:translateY(0);opacity:1}
+#toast.err{border-color:rgba(224,85,85,.4);color:var(--red)}
+
+[hidden]{display:none!important}
+@media(max-width:580px){.fg{grid-template-columns:1fr}.modal{padding:20px}.img-row{flex-wrap:wrap}}
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div id="loginScreen">
+  <div class="login-box">
+    <div class="login-logo">9TEAM</div>
+    <div class="login-sub">PAINEL ADMINISTRATIVO</div>
+    <div class="pw-wrap">
+      <input type="password" id="pwInput" class="pw-input" placeholder="••••"
+             maxlength="20" onkeydown="if(event.key==='Enter')doLogin()"/>
+    </div>
+    <button class="login-btn" onclick="doLogin()">ENTRAR</button>
+    <div class="login-err" id="loginErr"></div>
+  </div>
+</div>
+
+<!-- ADMIN -->
+<div id="adminPanel" hidden>
+  <header>
+    <div style="display:flex;align-items:center">
+      <span class="hd-logo">9TEAM</span>
+      <span class="hd-tag">ADMIN</span>
+    </div>
+    <div class="hd-actions">
+      <button class="btn-sm" onclick="exportData()" title="Exportar overrides como JSON">⬇ Exportar</button>
+      <a href="catalogo-9team.html" target="_blank" style="text-decoration:none">
+        <button class="btn-sm">🌐 Ver Catálogo</button>
+      </a>
+      <button class="btn-sm danger" onclick="doLogout()">Sair</button>
+    </div>
+  </header>
+  <main>
+    <div class="top-bar">
+      <input class="search-inp" placeholder="🔍 Buscar produto..."
+             oninput="renderList(this.value)" id="searchInp"/>
+      <button class="btn-add" onclick="openNew()">+ Novo Produto</button>
+    </div>
+    <div class="prod-list" id="prodList"></div>
+  </main>
+</div>
+
+<!-- EDIT MODAL -->
+<div class="overlay" id="editModal" hidden onclick="if(event.target===this)closeModal()">
+  <div class="modal">
+    <div class="modal-hd">
+      <div class="modal-title" id="modalTitle">Editar Produto</div>
+      <button class="btn-x" onclick="closeModal()">×</button>
+    </div>
+
+    <!-- FIELDS -->
+    <div class="fg">
+      <div>
+        <label class="flabel">Nome (Português)</label>
+        <input class="finput" id="fName" placeholder="Ex: Flamengo"/>
+      </div>
+      <div>
+        <label class="flabel">Nome (Inglês)</label>
+        <input class="finput" id="fNameEn" placeholder="Ex: Flamengo"/>
+      </div>
+      <div class="fg-full">
+        <label class="flabel">Descrição (Português)</label>
+        <textarea class="ftextarea" id="fSub" placeholder="Ex: Camisa Premium 2025 — Tamanhos P ao GGG" rows="2"></textarea>
+      </div>
+      <div class="fg-full">
+        <label class="flabel">Descrição (Inglês)</label>
+        <textarea class="ftextarea" id="fSubEn" placeholder="Ex: Premium Jersey 2025 — Sizes S to XXXL" rows="2"></textarea>
+      </div>
+      <div>
+        <label class="flabel">Liga / Grupo</label>
+        <input class="finput" id="fLeague" placeholder="Ex: Série A, Premier League..."/>
+      </div>
+      <div>
+        <label class="flabel">Categoria</label>
+        <select class="fselect" id="fCat">
+          <option value="times">⚽ Times (Clubes)</option>
+          <option value="selecoes">🏳 Seleções</option>
+          <option value="retro">🕹 Retrô</option>
+          <option value="kids">👦 Kids</option>
+          <option value="kits">🧥 Kits & Jaquetas</option>
+        </select>
+      </div>
+      <div class="fg-full">
+        <label class="flabel">Destaque na vitrine</label>
+        <label class="toggle-row" onclick="toggleFeat()">
+          <div class="toggle" id="featToggle"></div>
+          <span class="toggle-label" id="featLabel">Não destacado</span>
+        </label>
+      </div>
+    </div>
+
+    <!-- IMAGES -->
+    <div class="sec-title">📸 Fotos do Produto</div>
+
+    <div class="imgs-grid" id="imgsGrid"></div>
+
+    <div class="img-add-box">
+      <!-- Tabs -->
+      <div class="img-tabs">
+        <button class="img-tab active" id="tabUpload" onclick="switchTab('upload')">⬆ Upload do PC</button>
+        <button class="img-tab" id="tabUrl" onclick="switchTab('url')">🔗 URL / Yupoo ID</button>
+      </div>
+
+      <!-- Upload panel -->
+      <div id="panelUpload">
+        <div class="upload-zone" id="uploadZone"
+             ondragover="event.preventDefault();this.classList.add('drag')"
+             ondragleave="this.classList.remove('drag')"
+             ondrop="handleDrop(event)">
+          <input type="file" id="fileInput" accept="image/*" multiple onchange="handleFiles(this.files)"/>
+          <div class="upload-icon">🖼️</div>
+          <div class="upload-text">Clique ou arraste imagens aqui</div>
+          <div class="upload-hint">JPEG, PNG, WebP · várias de uma vez</div>
+        </div>
+        <div class="upload-progress" id="uploadProgress">
+          <div class="upload-bar-wrap"><div class="upload-bar" id="uploadBar"></div></div>
+          <div class="upload-status" id="uploadStatus">Processando…</div>
+        </div>
+      </div>
+
+      <!-- URL panel -->
+      <div id="panelUrl" hidden>
+        <div class="img-row">
+          <input class="img-inp" id="imgInp"
+                 placeholder="URL completa ou ID Yupoo (ex: 97118c90c7)"
+                 oninput="previewImg()"/>
+          <select class="img-ext" id="imgExt" onchange="previewImg()">
+            <option value="jpeg">.jpeg</option>
+            <option value="jpg">.jpg</option>
+            <option value="png">.png</option>
+          </select>
+          <button class="btn-add-img" onclick="addImg()">+ Foto</button>
+        </div>
+        <div class="img-prev-wrap" id="imgPrev">
+          <img id="imgPrevImg" src="" referrerpolicy="no-referrer" alt="Preview"/>
+          <span class="img-prev-url" id="imgPrevUrl"></span>
+        </div>
+        <div class="img-hint">
+          💡 Cole o <strong>URL completo</strong> da imagem, ou apenas o <strong>ID Yupoo</strong>
+          (ex: <code style="color:var(--blue)">97118c90c7</code>).<br>
+          A <strong>primeira foto</strong> é usada como capa do produto. Use as setas ◀ ▶ para reordenar.
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-foot">
+      <button class="btn-cancel" onclick="closeModal()">Cancelar</button>
+      <button class="btn-save" onclick="saveEdit()">💾 Salvar</button>
+    </div>
+  </div>
+</div>
+
+<div id="toast"></div>
+
+<script>
+/* ════════════════════════════════════════
+   BASE PRODUCTS
+════════════════════════════════════════ */
+const P_BASE=[
+  {id:1, name:'Flamengo',nameen:'Flamengo',sub:'Camisa Premium 2025',suben:'Premium Jersey 2025',cat:'times',feat:true,league:'Série A',imgs:[{i:'301c46b24b',e:'jpeg'},{i:'e91137c6e1',e:'jpeg'}]},
+  {id:2, name:'Palmeiras',nameen:'Palmeiras',sub:'Camisa Premium 2025',suben:'Premium Jersey 2025',cat:'times',feat:true,league:'Série A',imgs:[{i:'6e19381355',e:'jpeg'},{i:'e37b2dd9bd',e:'jpeg'}]},
+  {id:3, name:'Corinthians',nameen:'Corinthians',sub:'Camisa Premium 2025',suben:'Premium Jersey 2025',cat:'times',feat:false,league:'Série A',imgs:[{i:'c6556b1b1f',e:'jpeg'},{i:'d972416559',e:'jpeg'},{i:'c3ce20def4',e:'jpeg'},{i:'643a94f7d6',e:'jpeg'},{i:'2c4bfe6006',e:'jpeg'}]},
+  {id:4, name:'Fluminense',nameen:'Fluminense',sub:'Camisa Premium 2025',suben:'Premium Jersey 2025',cat:'times',feat:false,league:'Série A',imgs:[{i:'04835350db',e:'jpeg'},{i:'3ff15157f8',e:'jpeg'}]},
+  {id:5, name:'Cruzeiro',nameen:'Cruzeiro',sub:'Camisa Premium 2025',suben:'Premium Jersey 2025',cat:'times',feat:false,league:'Série A',imgs:[{i:'f7fffb1075',e:'jpeg'}]},
+  {id:48,name:'Santos',nameen:'Santos',sub:'Camisa Premium 2025',suben:'Premium Jersey 2025',cat:'times',feat:false,league:'Série A',imgs:[{i:'728e17021e',e:'png'},{i:'70444c4f7f',e:'png'},{i:'d4b63c0aaf',e:'png'},{i:'845cec265a',e:'png'},{i:'d4d23e5958',e:'png'},{i:'c591f79ac5',e:'png'},{i:'8caefa0743',e:'png'},{i:'e950f7e4cb',e:'png'}]},
+  {id:49,name:'Internacional',nameen:'Internacional',sub:'Camisa Premium 2025',suben:'Premium Jersey 2025',cat:'times',feat:false,league:'Série A',imgs:[{i:'de87b48586',e:'jpeg'}]},
+  {id:50,name:'Atlético Mineiro',nameen:'Atlético Mineiro',sub:'Camisa Premium 2025',suben:'Premium Jersey 2025',cat:'times',feat:false,league:'Série A',imgs:[{i:'d8da91403a',e:'jpeg'},{i:'d0b48f3ae4',e:'jpeg'}]},
+  {id:51,name:'Grêmio',nameen:'Grêmio',sub:'Camisa Premium 2025',suben:'Premium Jersey 2025',cat:'times',feat:false,league:'Série A',imgs:[{i:'d33745614a',e:'jpeg'},{i:'eb563e2631',e:'jpeg'}]},
+  {id:6, name:'Manchester United',nameen:'Manchester United',sub:'Camisa Premier League',suben:'Premier League Jersey',cat:'times',feat:true,league:'Premier League',imgs:[{i:'97118c90c7',e:'jpeg'},{i:'ff4986828c',e:'jpeg'}]},
+  {id:7, name:'Arsenal',nameen:'Arsenal',sub:'Camisa Premier League',suben:'Premier League Jersey',cat:'times',feat:false,league:'Premier League',imgs:[{i:'cd1fb95d71',e:'jpeg'},{i:'0cf2203025',e:'jpeg'}]},
+  {id:8, name:'Chelsea',nameen:'Chelsea',sub:'Camisa Premier League',suben:'Premier League Jersey',cat:'times',feat:false,league:'Premier League',imgs:[{i:'1f385c76ca',e:'jpeg'},{i:'d38398c952',e:'jpeg'}]},
+  {id:9, name:'Manchester City',nameen:'Manchester City',sub:'Camisa Premier League',suben:'Premier League Jersey',cat:'times',feat:false,league:'Premier League',imgs:[{i:'6dbcb88a00',e:'jpeg'},{i:'11ae7b94a9',e:'jpeg'}]},
+  {id:10,name:'Tottenham',nameen:'Tottenham',sub:'Camisa Premier League',suben:'Premier League Jersey',cat:'times',feat:false,league:'Premier League',imgs:[{i:'4c14f16d72',e:'jpeg'},{i:'1fc7355e60',e:'jpeg'}]},
+  {id:11,name:'Real Madrid',nameen:'Real Madrid',sub:'Camisa La Liga',suben:'La Liga Jersey',cat:'times',feat:true,league:'La Liga',imgs:[{i:'4453504a05',e:'jpeg'},{i:'cf4611f649',e:'jpeg'}]},
+  {id:12,name:'Barcelona',nameen:'Barcelona',sub:'Camisa La Liga',suben:'La Liga Jersey',cat:'times',feat:true,league:'La Liga',imgs:[{i:'f55129ba08',e:'jpeg'},{i:'a68d368677',e:'jpeg'},{i:'31104a0b59',e:'jpeg'},{i:'865575624f',e:'jpeg'}]},
+  {id:36,name:'Atlético Madrid',nameen:'Atlético Madrid',sub:'Camisa La Liga',suben:'La Liga Jersey',cat:'times',feat:false,league:'La Liga',imgs:[{i:'741994ed',e:'jpg'},{i:'ce841501',e:'jpg'}]},
+  {id:37,name:'Sevilla',nameen:'Sevilla',sub:'Camisa La Liga',suben:'La Liga Jersey',cat:'times',feat:false,league:'La Liga',imgs:[{i:'92a363f08b',e:'jpeg'},{i:'0f9e3458e7',e:'jpeg'}]},
+  {id:38,name:'Valencia',nameen:'Valencia',sub:'Camisa La Liga',suben:'La Liga Jersey',cat:'times',feat:false,league:'La Liga',imgs:[{i:'1896c7ff1f',e:'jpeg'},{i:'9b15d8513c',e:'jpeg'}]},
+  {id:13,name:'Bayern de Munique',nameen:'Bayern Munich',sub:'Camisa Bundesliga',suben:'Bundesliga Jersey',cat:'times',feat:true,league:'Bundesliga',imgs:[{i:'758df2ad35',e:'jpeg'},{i:'ed0284d3f4',e:'jpeg'}]},
+  {id:14,name:'Borussia Dortmund',nameen:'Borussia Dortmund',sub:'Camisa Bundesliga',suben:'Bundesliga Jersey',cat:'times',feat:false,league:'Bundesliga',imgs:[{i:'b64af9da69',e:'jpeg'},{i:'2289612cb0',e:'jpeg'}]},
+  {id:42,name:'Eintracht Frankfurt',nameen:'Eintracht Frankfurt',sub:'Camisa Bundesliga',suben:'Bundesliga Jersey',cat:'times',feat:false,league:'Bundesliga',imgs:[{i:'45b1c92af0',e:'jpeg'},{i:'49e339eb90',e:'jpeg'}]},
+  {id:43,name:'Schalke 04',nameen:'Schalke 04',sub:'Camisa Bundesliga',suben:'Bundesliga Jersey',cat:'times',feat:false,league:'Bundesliga',imgs:[{i:'fe6ec6a73f',e:'jpeg'},{i:'5f7243d68f',e:'jpeg'}]},
+  {id:16,name:'Inter de Milão',nameen:'Inter Milan',sub:'Camisa Serie A',suben:'Serie A Jersey',cat:'times',feat:false,league:'Serie A',imgs:[{i:'ce3b69c0',e:'jpg'},{i:'a8a1f9f7',e:'jpg'}]},
+  {id:17,name:'Napoli',nameen:'Napoli',sub:'Camisa Serie A',suben:'Serie A Jersey',cat:'times',feat:false,league:'Serie A',imgs:[{i:'efef4b5e',e:'jpg'},{i:'0eff18c9',e:'jpg'}]},
+  {id:18,name:'AC Milan',nameen:'AC Milan',sub:'Camisa Serie A',suben:'Serie A Jersey',cat:'times',feat:false,league:'Serie A',imgs:[{i:'09385a32',e:'jpg'},{i:'47dc0a87',e:'jpg'}]},
+  {id:44,name:'Roma',nameen:'AS Roma',sub:'Camisa Serie A',suben:'Serie A Jersey',cat:'times',feat:false,league:'Serie A',imgs:[{i:'4f14331d',e:'jpg'}]},
+  {id:45,name:'Lazio',nameen:'Lazio',sub:'Camisa Serie A',suben:'Serie A Jersey',cat:'times',feat:false,league:'Serie A',imgs:[{i:'5da5fb78',e:'jpeg'},{i:'48f1fc61',e:'jpeg'}]},
+  {id:46,name:'Fiorentina',nameen:'Fiorentina',sub:'Camisa Serie A',suben:'Serie A Jersey',cat:'times',feat:false,league:'Serie A',imgs:[{i:'c4eba399',e:'jpg'},{i:'df74a635',e:'jpg'}]},
+  {id:47,name:'Atalanta',nameen:'Atalanta',sub:'Camisa Serie A',suben:'Serie A Jersey',cat:'times',feat:false,league:'Serie A',imgs:[{i:'3c8a0938',e:'jpeg'},{i:'3bdf5f40',e:'jpeg'}]},
+  {id:15,name:'Paris Saint-Germain',nameen:'Paris Saint-Germain',sub:'Camisa Ligue 1',suben:'Ligue 1 Jersey',cat:'times',feat:true,league:'Ligue 1',imgs:[{i:'ca571a5415',e:'jpeg'},{i:'911b9b8506',e:'jpeg'}]},
+  {id:39,name:'Lyon',nameen:'Olympique Lyon',sub:'Camisa Ligue 1',suben:'Ligue 1 Jersey',cat:'times',feat:false,league:'Ligue 1',imgs:[{i:'c2679c7c',e:'jpg'},{i:'f21fd5fd',e:'jpg'}]},
+  {id:40,name:'Marseille',nameen:'Olympique Marseille',sub:'Camisa Ligue 1',suben:'Ligue 1 Jersey',cat:'times',feat:false,league:'Ligue 1',imgs:[{i:'f81aadbd',e:'jpg'},{i:'0d9995ca',e:'jpg'}]},
+  {id:41,name:'Monaco',nameen:'AS Monaco',sub:'Camisa Ligue 1',suben:'Ligue 1 Jersey',cat:'times',feat:false,league:'Ligue 1',imgs:[{i:'7ace2d71',e:'jpeg'},{i:'f462842b',e:'jpeg'}]},
+  {id:19,name:'Brasil',nameen:'Brazil',sub:'Seleção Brasileira',suben:'Brazil National Team',cat:'selecoes',feat:true,league:'Seleções',imgs:[{i:'d49dc8ad41',e:'jpeg'},{i:'36cac3af7e',e:'jpeg'},{i:'c1c61ca42f',e:'jpeg'}]},
+  {id:20,name:'Argentina',nameen:'Argentina',sub:'Seleção Argentina',suben:'Argentina National Team',cat:'selecoes',feat:true,league:'Seleções',imgs:[{i:'097ca50662',e:'jpeg'},{i:'a68ff0f383',e:'jpeg'},{i:'db2c881091',e:'jpeg'},{i:'265c1621bc',e:'jpeg'},{i:'2921e44142',e:'jpeg'}]},
+  {id:21,name:'França',nameen:'France',sub:'Seleção Francesa',suben:'France National Team',cat:'selecoes',feat:false,league:'Seleções',imgs:[{i:'884a641817',e:'jpeg'},{i:'e3c9fc660b',e:'jpeg'}]},
+  {id:22,name:'Portugal',nameen:'Portugal',sub:'Seleção Portuguesa',suben:'Portugal National Team',cat:'selecoes',feat:false,league:'Seleções',imgs:[{i:'ffae7515d9',e:'jpeg'},{i:'bafec2b787',e:'jpeg'}]},
+  {id:27,name:'Inglaterra',nameen:'England',sub:'Seleção Inglesa',suben:'England National Team',cat:'selecoes',feat:false,league:'Seleções',imgs:[{i:'c3d2f15ca5',e:'jpeg'},{i:'2bd8329024',e:'jpeg'}]},
+  {id:28,name:'Alemanha',nameen:'Germany',sub:'Seleção Alemã',suben:'Germany National Team',cat:'selecoes',feat:false,league:'Seleções',imgs:[{i:'d1a8773900',e:'jpeg'},{i:'f06d93abda',e:'jpeg'}]},
+  {id:29,name:'Holanda',nameen:'Netherlands',sub:'Seleção Holandesa',suben:'Netherlands National Team',cat:'selecoes',feat:false,league:'Seleções',imgs:[{i:'50fa0bfe3c',e:'jpeg'},{i:'25874d1123',e:'jpeg'}]},
+  {id:30,name:'Itália',nameen:'Italy',sub:'Seleção Italiana',suben:'Italy National Team',cat:'selecoes',feat:false,league:'Seleções',imgs:[{i:'b35a7fddcc',e:'jpeg'},{i:'124bfef818',e:'jpeg'}]},
+  {id:31,name:'Espanha',nameen:'Spain',sub:'Seleção Espanhola',suben:'Spain National Team',cat:'selecoes',feat:false,league:'Seleções',imgs:[{i:'ac0a314df8',e:'jpeg'},{i:'fb3c56d639',e:'jpeg'},{i:'a959f479e9',e:'jpeg'},{i:'f1d5f90b74',e:'jpeg'},{i:'03d68436f7',e:'jpeg'}]},
+  {id:32,name:'Coreia do Sul',nameen:'South Korea',sub:'Seleção Coreana',suben:'South Korea National Team',cat:'selecoes',feat:false,league:'Seleções',imgs:[{i:'e0e5aca979',e:'jpeg'},{i:'5da38f5dfe',e:'jpeg'}]},
+  {id:33,name:'Japão',nameen:'Japan',sub:'Seleção Japonesa',suben:'Japan National Team',cat:'selecoes',feat:false,league:'Seleções',imgs:[{i:'2b9b0fd7e0',e:'jpeg'},{i:'17c439a7ca',e:'jpeg'}]},
+  {id:34,name:'México',nameen:'Mexico',sub:'Seleção Mexicana',suben:'Mexico National Team',cat:'selecoes',feat:false,league:'Seleções',imgs:[{i:'4be5325162',e:'jpeg'},{i:'0488688737',e:'jpeg'},{i:'87ae7cac3f',e:'jpeg'}]},
+  {id:35,name:'Estados Unidos',nameen:'USA',sub:'Seleção Americana',suben:'USA National Team',cat:'selecoes',feat:false,league:'Seleções',imgs:[{i:'17bc4a0ae4',e:'jpeg'},{i:'8dbabfbf5f',e:'jpeg'}]},
+  {id:23,name:'Barcelona Retrô',nameen:'Barcelona Retro',sub:'Edição Especial Retrô',suben:'Special Retro Edition',cat:'retro',feat:true,league:'Retrô',imgs:[{i:'3bdd762ab0',e:'png'}]},
+  {id:24,name:'Manchester United Retrô',nameen:'Manchester United Retro',sub:'Edição Especial Retrô',suben:'Special Retro Edition',cat:'retro',feat:false,league:'Retrô',imgs:[{i:'02dc33646b',e:'jpeg'}]},
+  {id:25,name:'Camiseta Infantil',nameen:'Kids Jersey',sub:'Vários Times — Coleção Kids',suben:'Various Clubs — Kids Collection',cat:'kids',feat:false,league:'Kids',imgs:[{i:'8cdaf5ef',e:'jpeg'}]},
+  {id:26,name:'Agasalho Windbreaker',nameen:'Windbreaker Training Kit',sub:'Jaqueta Training Suit',suben:'Training Suit Jacket',cat:'kits',feat:false,league:'Kits',imgs:[{i:'85d0a0c6',e:'jpeg'}]},
+];
+
+/* ════════════════════════════════════════
+   CONSTANTS & STATE
+════════════════════════════════════════ */
+const PWD = '2026';
+const SK  = 'nineTeamOverrides';
+const IMG_SK = 'nineTeamImages'; // separate key for base64 images
+let curEdit   = null;
+let editImgs  = [];
+let featOn    = false;
+let isNewProd = false;
+let activeTab = 'upload';
+
+/* ── storage helpers ── */
+function getOvr(){ try{return JSON.parse(localStorage.getItem(SK)||'{}')}catch(e){return{}} }
+function saveOvr(o){ localStorage.setItem(SK,JSON.stringify(o)) }
+
+function getImgStore(){ try{return JSON.parse(localStorage.getItem(IMG_SK)||'{}')}catch(e){return{}} }
+function saveImgToStore(key,dataUrl){
+  try{
+    const s=getImgStore(); s[key]=dataUrl; localStorage.setItem(IMG_SK,JSON.stringify(s));
+    return true;
+  }catch(e){
+    if(e.name==='QuotaExceededError') toast('⚠️ Armazenamento cheio! Use imagens menores ou URLs.',true);
+    return false;
+  }
+}
+function resolveImgStore(key){ return (getImgStore()[key])||null; }
+
+function getAllProds(){
+  const o = getOvr();
+  const list = P_BASE.map(p=>({...p,...(o[p.id]||{})}));
+  Object.entries(o).forEach(([id,d])=>{
+    if(!P_BASE.find(p=>p.id===+id)) list.push({id:+id,...d});
+  });
+  return list;
+}
+
+function imgUrl(ph){
+  if(!ph) return '';
+  if(ph.local){ const d=resolveImgStore(ph.local); if(d) return d; }
+  if(ph.url)  return ph.url;
+  if(ph.i)    return `https://photo.yupoo.com/194939/${ph.i}/medium.${ph.e}`;
+  return '';
+}
+
+function buildImgObj(val,ext){
+  const v=val.trim();
+  if(v.startsWith('http://')||v.startsWith('https://')) return {url:v,i:'',e:''};
+  return {i:v,e:ext};
+}
+
+function buildPreviewUrl(val,ext){
+  const v=val.trim();
+  if(!v) return '';
+  if(v.startsWith('http://')||v.startsWith('https://')) return v;
+  return `https://photo.yupoo.com/194939/${v}/medium.${ext}`;
+}
+
+/* ════════════════════════════════════════
+   AUTH
+════════════════════════════════════════ */
+function doLogin(){
+  const pw = document.getElementById('pwInput').value;
+  if(pw===PWD){
+    sessionStorage.setItem('adminOk','1');
+    document.getElementById('loginScreen').hidden = true;
+    document.getElementById('adminPanel').hidden  = false;
+    renderList('');
+  } else {
+    const inp=document.getElementById('pwInput');
+    document.getElementById('loginErr').textContent='Senha incorreta. Tente novamente.';
+    inp.classList.add('err');
+    setTimeout(()=>inp.classList.remove('err'),400);
+  }
+}
+
+function doLogout(){
+  sessionStorage.removeItem('adminOk');
+  document.getElementById('adminPanel').hidden  = true;
+  document.getElementById('loginScreen').hidden = false;
+  document.getElementById('pwInput').value = '';
+  document.getElementById('loginErr').textContent = '';
+}
+
+/* ════════════════════════════════════════
+   LIST
+════════════════════════════════════════ */
+function renderList(q=''){
+  const q2=q.toLowerCase();
+  const ovr=getOvr();
+  const prods=getAllProds().filter(p=>{
+    const t=(p.name+p.nameen+p.league+p.cat).toLowerCase();
+    return !q2||t.includes(q2);
+  });
+  const el=document.getElementById('prodList');
+  if(!prods.length){el.innerHTML='<div class="empty">Nenhum produto encontrado</div>';return;}
+  el.innerHTML=prods.map(p=>{
+    const isOvr=!!ovr[p.id];
+    const isNew=isOvr&&!P_BASE.find(b=>b.id===p.id);
+    const th=p.imgs&&p.imgs[0]?imgUrl(p.imgs[0]):'';
+    const badge=isNew?'<span class="badge-new">NOVO</span>':isOvr?'<span class="badge-custom">EDITADO</span>':'';
+    return`<div class="prod-row">
+      <img class="prod-thumb" src="${th}" referrerpolicy="no-referrer"
+           onerror="this.src='';this.style.background='var(--bg3)'" alt="${p.name}"/>
+      <div class="prod-info">
+        <div class="prod-name">${p.name} ${badge}</div>
+        <div class="prod-meta">${p.league||''} · ${p.cat} · ${(p.imgs||[]).length} foto${(p.imgs||[]).length!==1?'s':''}</div>
+      </div>
+      <div class="prod-acts">
+        <button class="btn-edit" onclick="openEdit(${p.id})">✏️ Editar</button>
+        ${isOvr?`<button class="btn-reset" onclick="resetProd(${p.id})" title="Restaurar original">↩</button>`:''}
+      </div>
+    </div>`;
+  }).join('');
+}
+
+/* ════════════════════════════════════════
+   IMAGE TABS
+════════════════════════════════════════ */
+function switchTab(tab){
+  activeTab=tab;
+  document.getElementById('tabUpload').classList.toggle('active',tab==='upload');
+  document.getElementById('tabUrl').classList.toggle('active',tab==='url');
+  document.getElementById('panelUpload').hidden=tab!=='upload';
+  document.getElementById('panelUrl').hidden=tab!=='url';
+}
+
+/* ════════════════════════════════════════
+   FILE UPLOAD
+════════════════════════════════════════ */
+function handleDrop(e){
+  e.preventDefault();
+  document.getElementById('uploadZone').classList.remove('drag');
+  const files=e.dataTransfer.files;
+  if(files.length) handleFiles(files);
+}
+
+function handleFiles(files){
+  const arr=Array.from(files).filter(f=>f.type.startsWith('image/'));
+  if(!arr.length){ toast('⚠️ Selecione apenas imagens',true); return; }
+  const prog=document.getElementById('uploadProgress');
+  const bar=document.getElementById('uploadBar');
+  const status=document.getElementById('uploadStatus');
+  prog.style.display='block';
+  let done=0;
+  arr.forEach(file=>{
+    const reader=new FileReader();
+    reader.onload=ev=>{
+      const dataUrl=ev.target.result;
+      // Compress if too large (>300KB)
+      compressImage(dataUrl, file.type, (compressed)=>{
+        const key='img_'+(Date.now())+'_'+Math.random().toString(36).slice(2,7);
+        if(saveImgToStore(key,compressed)){
+          editImgs.push({local:key});
+          renderImgs();
+        }
+        done++;
+        bar.style.width=Math.round(done/arr.length*100)+'%';
+        status.textContent=`${done} de ${arr.length} imagem${arr.length>1?'ns':''} carregada${arr.length>1?'s':''}`;
+        if(done===arr.length){
+          setTimeout(()=>{ prog.style.display='none'; bar.style.width='0'; },1500);
+          // reset file input
+          document.getElementById('fileInput').value='';
+        }
+      });
+    };
+    reader.readAsDataURL(file);
+  });
+}
+
+function compressImage(dataUrl, mimeType, cb){
+  const img=new Image();
+  img.onload=()=>{
+    const MAX=900;
+    let w=img.width, h=img.height;
+    if(w>MAX||h>MAX){
+      if(w>h){ h=Math.round(h*MAX/w); w=MAX; }
+      else    { w=Math.round(w*MAX/h); h=MAX; }
+    }
+    const canvas=document.createElement('canvas');
+    canvas.width=w; canvas.height=h;
+    canvas.getContext('2d').drawImage(img,0,0,w,h);
+    cb(canvas.toDataURL('image/jpeg',0.82));
+  };
+  img.src=dataUrl;
+}
+
+/* ════════════════════════════════════════
+   EDIT MODAL
+════════════════════════════════════════ */
+function openEdit(id){
+  const p=getAllProds().find(x=>x.id===id);
+  if(!p) return;
+  curEdit={...p}; editImgs=(p.imgs||[]).map(x=>({...x})); isNewProd=false; featOn=!!p.feat;
+  document.getElementById('modalTitle').textContent=`Editar: ${p.name}`;
+  document.getElementById('fName').value=p.name||'';
+  document.getElementById('fNameEn').value=p.nameen||'';
+  document.getElementById('fSub').value=p.sub||'';
+  document.getElementById('fSubEn').value=p.suben||'';
+  document.getElementById('fLeague').value=p.league||'';
+  document.getElementById('fCat').value=p.cat||'times';
+  updFeat(); renderImgs(); resetImgInput();
+  document.getElementById('editModal').hidden=false;
+}
+
+function openNew(){
+  const ovr=getOvr();
+  const ids=[...P_BASE.map(p=>p.id),...Object.keys(ovr).map(Number)];
+  const newId=Math.max(...ids,99)+1;
+  curEdit={id:newId,name:'',nameen:'',sub:'',suben:'',cat:'times',feat:false,league:'',imgs:[]};
+  editImgs=[]; isNewProd=true; featOn=false;
+  document.getElementById('modalTitle').textContent='Novo Produto';
+  ['fName','fNameEn','fSub','fSubEn','fLeague'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('fCat').value='times';
+  updFeat(); renderImgs(); resetImgInput();
+  document.getElementById('editModal').hidden=false;
+}
+
+function resetImgInput(){
+  switchTab('upload');
+  document.getElementById('imgInp').value='';
+  document.getElementById('imgPrev').style.display='none';
+  document.getElementById('uploadProgress').style.display='none';
+  document.getElementById('uploadBar').style.width='0';
+  document.getElementById('fileInput').value='';
+}
+
+function closeModal(){ document.getElementById('editModal').hidden=true; curEdit=null; }
+
+function toggleFeat(){ featOn=!featOn; updFeat(); }
+function updFeat(){
+  document.getElementById('featToggle').classList.toggle('on',featOn);
+  document.getElementById('featLabel').textContent=featOn?'⭐ Produto em destaque':'Não destacado';
+}
+
+function renderImgs(){
+  const g=document.getElementById('imgsGrid');
+  if(!editImgs.length){
+    g.innerHTML='<div style="color:var(--text3);font-size:13px;padding:6px 0">Nenhuma foto adicionada ainda</div>';
+    return;
+  }
+  g.innerHTML=editImgs.map((ph,i)=>`
+    <div class="img-item ${i===0?'is-cover':''}">
+      <img src="${imgUrl(ph)}" referrerpolicy="no-referrer" alt="Foto ${i+1}"
+           onerror="this.src='';this.style.background='var(--bg3)'"/>
+      <button class="img-del" onclick="removeImg(${i})" title="Remover">×</button>
+      <div class="img-move">
+        ${i>0?`<button class="img-mv-btn" onclick="moveImg(${i},-1)" title="Mover esquerda">◀</button>`:''}
+        ${i<editImgs.length-1?`<button class="img-mv-btn" onclick="moveImg(${i},1)" title="Mover direita">▶</button>`:''}
+      </div>
+      <div class="img-idx">${i===0?'✓ Capa':`${i+1}ª foto`}</div>
+    </div>`).join('');
+}
+
+function removeImg(i){ editImgs.splice(i,1); renderImgs(); }
+
+function moveImg(i, dir){
+  const j=i+dir;
+  if(j<0||j>=editImgs.length) return;
+  [editImgs[i],editImgs[j]]=[editImgs[j],editImgs[i]];
+  renderImgs();
+}
+
+function previewImg(){
+  const v=document.getElementById('imgInp').value;
+  const e=document.getElementById('imgExt').value;
+  const url=buildPreviewUrl(v,e);
+  const wrap=document.getElementById('imgPrev');
+  if(!url){wrap.style.display='none';return;}
+  document.getElementById('imgPrevImg').src=url;
+  document.getElementById('imgPrevUrl').textContent=url;
+  wrap.style.display='flex';
+}
+
+function addImg(){
+  const v=document.getElementById('imgInp').value.trim();
+  const e=document.getElementById('imgExt').value;
+  if(!v){toast('⚠️ Insira um URL ou ID de foto',true);return;}
+  editImgs.push(buildImgObj(v,e));
+  document.getElementById('imgInp').value='';
+  document.getElementById('imgPrev').style.display='none';
+  renderImgs();
+}
+
+function saveEdit(){
+  const name=document.getElementById('fName').value.trim();
+  if(!name){toast('⚠️ O nome é obrigatório',true);return;}
+  const updated={
+    ...curEdit,
+    name,
+    nameen: document.getElementById('fNameEn').value.trim()||name,
+    sub:    document.getElementById('fSub').value.trim(),
+    suben:  document.getElementById('fSubEn').value.trim(),
+    league: document.getElementById('fLeague').value.trim(),
+    cat:    document.getElementById('fCat').value,
+    feat:   featOn,
+    imgs:   editImgs
+  };
+  const o=getOvr(); o[updated.id]=updated; saveOvr(o);
+  closeModal();
+  renderList(document.getElementById('searchInp').value);
+  toast('✅ Produto salvo com sucesso!');
+}
+
+function resetProd(id){
+  if(!confirm('Restaurar para os dados originais? As edições serão perdidas.')) return;
+  const o=getOvr(); delete o[id]; saveOvr(o);
+  renderList(document.getElementById('searchInp').value);
+  toast('↩ Produto restaurado');
+}
+
+/* ════════════════════════════════════════
+   EXPORT
+════════════════════════════════════════ */
+function exportData(){
+  const o=getOvr();
+  const blob=new Blob([JSON.stringify(o,null,2)],{type:'application/json'});
+  const a=document.createElement('a'); a.href=URL.createObjectURL(blob);
+  a.download='9team-overrides.json'; a.click();
+  toast('⬇ Arquivo exportado!');
+}
+
+/* ════════════════════════════════════════
+   TOAST
+════════════════════════════════════════ */
+function toast(msg,err=false){
+  const t=document.getElementById('toast');
+  t.textContent=msg; t.classList.toggle('err',err);
+  t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2800);
+}
+
+/* ════════════════════════════════════════
+   INIT
+════════════════════════════════════════ */
+if(sessionStorage.getItem('adminOk')==='1'){
+  document.getElementById('loginScreen').hidden=true;
+  document.getElementById('adminPanel').hidden=false;
+  renderList('');
+}
+</script>
+</body>
+</html>

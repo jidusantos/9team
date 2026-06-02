@@ -1,0 +1,1567 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="referrer" content="no-referrer"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>9TEAM — Camisetas Premium</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Barlow+Condensed:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet"/>
+<style>
+/* ═══════════════════════════════════════
+   TOKENS
+═══════════════════════════════════════ */
+:root{
+  --bg:       #F4F1EA;
+  --bg2:      #FBFAF6;
+  --bg3:      #ECE8DF;
+  --blue:     #3B6EF0;
+  --blue2:    #2B5EE0;
+  --purple:   #8B43C8;
+  --purple2:  #7C36B8;
+  --grad:     linear-gradient(135deg,#3B6EF0 0%,#9B4FD8 100%);
+  --grad-h:   linear-gradient(135deg,#2B5EE0 0%,#7C36B8 100%);
+  --text:     #22262F;
+  --text2:    #5C6472;
+  --text3:    #8B93A1;
+  --border:   rgba(40,45,60,0.12);
+  --card:     #FFFFFF;
+  --radius:   16px;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:'Barlow Condensed',sans-serif;
+  min-height:100vh;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+::-webkit-scrollbar{width:5px}
+::-webkit-scrollbar-track{background:var(--bg2)}
+::-webkit-scrollbar-thumb{background:var(--purple2);border-radius:3px}
+
+/* ═══════════════════════════════════════
+   HEADER
+═══════════════════════════════════════ */
+header{
+  background:rgba(251,250,246,0.85);
+  backdrop-filter:blur(22px) saturate(1.8);
+  -webkit-backdrop-filter:blur(22px) saturate(1.8);
+  border-bottom:1px solid var(--border);
+  position:sticky;top:0;z-index:100;
+  padding:0 32px;
+}
+.header-inner{
+  max-width:1340px;margin:0 auto;
+  display:flex;align-items:center;
+  justify-content:space-between;
+  height:68px;gap:20px;
+}
+.logo{
+  font-family:'Oswald',sans-serif;
+  font-size:26px;font-weight:700;
+  background:var(--grad);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;
+  letter-spacing:5px;
+  flex-shrink:0;
+  position:relative;
+  cursor:pointer;
+}
+.logo::after{
+  content:'';
+  position:absolute;bottom:-2px;left:0;right:0;
+  height:2px;
+  background:var(--grad);
+  border-radius:1px;
+  opacity:0.55;
+}
+.header-search{
+  flex:1;max-width:420px;
+  position:relative;
+}
+.header-search input{
+  width:100%;
+  background:rgba(255,255,255,0.05);
+  border:1px solid rgba(255,255,255,0.07);
+  color:var(--text);
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:15px;letter-spacing:.3px;
+  padding:10px 18px 10px 46px;
+  border-radius:50px;
+  outline:none;
+  transition:all .25s;
+}
+.header-search input:focus{
+  border-color:rgba(27,79,232,0.5);
+  background:rgba(27,79,232,0.07);
+  box-shadow:0 0 0 3px rgba(27,79,232,0.1);
+}
+.header-search input::placeholder{color:var(--text3)}
+.search-icon{
+  position:absolute;left:17px;top:50%;transform:translateY(-50%);
+  color:var(--text3);pointer-events:none;
+  display:flex;align-items:center;
+}
+.header-right{display:flex;align-items:center;gap:10px}
+.lang-btn{
+  background:rgba(255,255,255,0.05);
+  border:1px solid rgba(255,255,255,0.09);
+  color:var(--text2);
+  font-family:'Oswald',sans-serif;
+  font-size:12px;font-weight:600;letter-spacing:1.5px;
+  padding:8px 16px;border-radius:50px;
+  cursor:pointer;transition:all .2s;flex-shrink:0;
+}
+.lang-btn:hover{border-color:rgba(123,47,190,0.45);color:var(--text);background:rgba(123,47,190,0.1)}
+.ig-btn{
+  background:var(--grad);
+  border:none;color:#fff;
+  font-family:'Oswald',sans-serif;
+  font-size:13px;font-weight:700;letter-spacing:1.5px;
+  padding:9px 22px;border-radius:50px;
+  cursor:pointer;transition:all .25s;
+  white-space:nowrap;flex-shrink:0;
+  box-shadow:0 4px 18px rgba(27,79,232,0.32);
+  position:relative;overflow:hidden;
+}
+.ig-btn::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(255,255,255,0.18) 0%,transparent 55%);
+  opacity:0;transition:opacity .25s;
+}
+.ig-btn:hover{box-shadow:0 6px 28px rgba(27,79,232,0.55);transform:translateY(-1px)}
+.ig-btn:hover::before{opacity:1}
+
+/* ═══════════════════════════════════════
+   HERO
+═══════════════════════════════════════ */
+.hero{
+  position:relative;overflow:hidden;
+  background:linear-gradient(120deg,#16357A 0%,#1B4FE8 38%,#3B6EF0 60%,#8B43C8 100%);
+}
+/* marcações de campo brancas (linha de meio-campo, círculo, áreas) */
+.hero::before{
+  content:'';position:absolute;inset:0;pointer-events:none;z-index:0;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 360'%3E%3Cg fill='none' stroke='%23ffffff' stroke-width='2.5'%3E%3Cline x1='400' y1='0' x2='400' y2='360'/%3E%3Ccircle cx='400' cy='180' r='92'/%3E%3Ccircle cx='400' cy='180' r='5' fill='%23ffffff'/%3E%3Crect x='-2' y='112' width='78' height='136'/%3E%3Crect x='724' y='112' width='78' height='136'/%3E%3C/g%3E%3C/svg%3E") center/cover no-repeat;
+  opacity:.09;
+}
+.hero-inner{
+  position:relative;z-index:2;max-width:1180px;margin:0 auto;
+  display:flex;align-items:center;gap:30px;padding:52px 32px 56px;
+}
+.hero-copy{flex:1.1;text-align:left;min-width:0}
+.hero-showcase{flex:1;position:relative;height:330px;display:flex;align-items:center;justify-content:center}
+.hero-showcase .jersey{
+  position:absolute;width:225px;aspect-ratio:3/4;object-fit:cover;
+  border-radius:14px;background:#fff;border:4px solid #fff;
+  box-shadow:0 24px 52px rgba(0,0,0,.40);
+}
+.hero-showcase .j1{transform:rotate(-9deg) translateX(-128px);z-index:1}
+.hero-showcase .j2{transform:scale(1.13);z-index:3}
+.hero-showcase .j3{transform:rotate(9deg) translateX(128px);z-index:2}
+.hero-ball{position:absolute;z-index:4;width:50px;height:50px;filter:drop-shadow(0 8px 16px rgba(0,0,0,.3))}
+.hero-ball.b1{top:6px;right:8%;animation:floatBall 6s ease-in-out infinite}
+@keyframes floatBall{0%,100%{transform:translateY(0) rotate(-8deg)}50%{transform:translateY(-16px) rotate(8deg)}}
+.orb{display:none}
+.hero-eyebrow{
+  display:inline-flex;align-items:center;gap:9px;
+  font-size:12px;font-weight:700;letter-spacing:3.5px;
+  color:#fff;opacity:.92;text-transform:uppercase;margin-bottom:16px;
+}
+.hero-eyebrow::before{content:'⚽';font-size:15px}
+.hero h1{
+  font-family:'Oswald',sans-serif;
+  font-size:clamp(36px,5.2vw,68px);
+  font-weight:700;line-height:.98;letter-spacing:1px;
+  color:#fff;margin-bottom:14px;
+  text-shadow:0 4px 22px rgba(0,0,0,.28);
+}
+.hero-sub{font-size:clamp(15px,1.6vw,19px);color:rgba(255,255,255,.92);letter-spacing:.4px;line-height:1.45;margin-bottom:24px;max-width:440px}
+.hero-cta-row{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin-bottom:30px}
+.hero-cta{
+  font-family:'Oswald',sans-serif;font-size:15px;font-weight:700;letter-spacing:1.5px;
+  background:#D8FF3E;color:#16357A;border:none;
+  padding:15px 34px;border-radius:50px;cursor:pointer;
+  box-shadow:0 10px 28px rgba(216,255,62,.35);transition:all .2s;
+}
+.hero-cta:hover{transform:translateY(-2px);box-shadow:0 14px 34px rgba(216,255,62,.5)}
+.hero-offer{
+  display:inline-flex;align-items:center;gap:8px;
+  font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:600;letter-spacing:.5px;
+  color:#EEFFC2;background:rgba(216,255,62,.14);
+  border:1px solid rgba(216,255,62,.55);border-radius:50px;padding:8px 16px;
+}
+.hero-stats{display:flex;align-items:center;flex-wrap:wrap;gap:0}
+.hero-stat{padding-right:26px;margin-right:26px;text-align:left;border-right:1px solid rgba(255,255,255,.28)}
+.hero-stat:last-child{border-right:none;margin-right:0;padding-right:0}
+.stat-num{font-family:'Oswald',sans-serif;font-size:30px;font-weight:700;color:#fff;line-height:1;display:block}
+.stat-label{font-size:10px;font-weight:700;letter-spacing:2.5px;color:rgba(255,255,255,.7);text-transform:uppercase;margin-top:4px;display:block}
+@media(max-width:860px){
+  .hero-inner{flex-direction:column;text-align:center;gap:18px;padding:40px 20px 44px}
+  .hero-copy{text-align:center}
+  .hero-sub{margin-left:auto;margin-right:auto}
+  .hero-cta-row,.hero-stats{justify-content:center}
+  .hero-stat{text-align:center}
+  .hero-showcase{order:-1;height:250px;width:100%}
+  .hero-showcase .jersey{width:160px;border-width:3px}
+  .hero-showcase .j1{transform:rotate(-9deg) translateX(-92px)}
+  .hero-showcase .j3{transform:rotate(9deg) translateX(92px)}
+  .hero-ball.b1{width:38px;right:6%}
+}
+
+/* ═══════════════════════════════════════
+   FILTER BAR
+═══════════════════════════════════════ */
+.filter-bar-wrap{
+  background:var(--bg);
+  border-bottom:1px solid var(--border);
+  padding:0 32px;
+  position:sticky;top:68px;z-index:90;
+}
+.filter-bar{
+  max-width:1340px;margin:0 auto;
+  display:flex;align-items:center;
+  gap:6px;padding:12px 0;
+  overflow-x:auto;
+  scrollbar-width:none;
+}
+.filter-bar::-webkit-scrollbar{display:none}
+.cat-btn{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:13px;font-weight:600;letter-spacing:1px;
+  color:var(--text2);
+  background:rgba(255,255,255,0.04);
+  border:1px solid rgba(255,255,255,0.07);
+  padding:7px 18px;border-radius:50px;
+  cursor:pointer;transition:all .2s;
+  white-space:nowrap;flex-shrink:0;
+  display:flex;align-items:center;gap:6px;
+}
+.cat-btn .count{
+  font-size:10px;opacity:.55;
+  background:rgba(255,255,255,.08);
+  border-radius:50px;padding:1px 6px;
+}
+.cat-btn:hover{border-color:rgba(100,130,240,0.35);color:var(--text);background:rgba(100,130,240,0.06)}
+.cat-btn.active{
+  background:var(--grad);color:#fff;
+  border-color:transparent;
+  box-shadow:0 3px 16px rgba(27,79,232,0.3);
+}
+.cat-btn.active .count{background:rgba(255,255,255,.2)}
+
+/* ═══════════════════════════════════════
+   SECTION / GRID
+═══════════════════════════════════════ */
+.section{
+  max-width:1340px;margin:0 auto;
+  padding:32px 32px 72px;
+}
+.section-header{
+  display:flex;justify-content:space-between;
+  align-items:center;margin-bottom:24px;
+}
+.result-count{font-size:13px;color:var(--text3);letter-spacing:.5px}
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
+  gap:20px;
+}
+
+/* ═══════════════════════════════════════
+   CARD
+═══════════════════════════════════════ */
+.card{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  overflow:hidden;
+  display:flex;flex-direction:column;
+  transition:transform .28s,box-shadow .28s,border-color .28s;
+  cursor:pointer;
+  position:relative;
+}
+.card:hover{
+  transform:translateY(-5px);
+  box-shadow:0 18px 52px rgba(0,0,0,.45),0 0 0 1px rgba(100,130,240,.25);
+  border-color:rgba(100,130,240,.35);
+}
+.card-img-wrap{position:relative;overflow:hidden}
+.card-img{
+  width:100%;aspect-ratio:3/4;
+  object-fit:cover;
+  display:block;
+  transition:transform .4s;
+}
+.card:hover .card-img{transform:scale(1.04)}
+.badge{
+  position:absolute;top:12px;left:12px;
+  background:var(--grad);
+  color:#fff;
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:9px;font-weight:700;letter-spacing:2px;
+  text-transform:uppercase;
+  padding:4px 10px;border-radius:50px;
+  box-shadow:0 2px 10px rgba(27,79,232,0.45);
+}
+.card-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(to top,rgba(10,10,28,.88) 0%,rgba(10,10,28,.2) 55%,transparent 100%);
+  display:flex;align-items:flex-end;justify-content:center;
+  padding:16px;
+  opacity:0;transition:opacity .28s;
+}
+.card:hover .card-overlay{opacity:1}
+.overlay-btn{
+  background:rgba(255,255,255,.12);
+  backdrop-filter:blur(8px);
+  border:1px solid rgba(255,255,255,.2);
+  color:#fff;
+  font-family:'Oswald',sans-serif;
+  font-size:11px;font-weight:700;letter-spacing:2px;
+  padding:9px 22px;border-radius:50px;
+  cursor:pointer;transition:all .2s;
+}
+.overlay-btn:hover{background:rgba(255,255,255,.22)}
+/* skeleton shimmer */
+@keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+.skel{background:linear-gradient(90deg,rgba(255,255,255,.04) 25%,rgba(255,255,255,.09) 50%,rgba(255,255,255,.04) 75%);background-size:200% 100%;animation:shimmer 1.6s infinite}
+.card-img.skel{aspect-ratio:3/4;display:block}
+/* card body */
+.card-body{padding:14px 16px 16px;flex:1;display:flex;flex-direction:column}
+.league-tag{display:inline-block;font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--blue);margin-bottom:7px;position:relative;padding-left:10px}
+.league-tag::before{content:'';position:absolute;left:0;top:50%;transform:translateY(-50%);width:3px;height:11px;background:var(--grad);border-radius:2px}
+.card-name{font-family:'Oswald',sans-serif;font-size:19px;font-weight:700;color:var(--text);letter-spacing:.5px;margin-bottom:3px;line-height:1.1}
+.card-sub{font-size:12px;color:var(--text2);font-weight:400;letter-spacing:.3px;margin-bottom:14px;flex:1}
+.buy-btn{
+  background:var(--grad);
+  border:none;color:#fff;
+  font-family:'Oswald',sans-serif;
+  font-size:12px;font-weight:700;letter-spacing:2px;
+  padding:10px 0;border-radius:10px;
+  cursor:pointer;width:100%;
+  transition:all .25s;
+  position:relative;overflow:hidden;
+}
+.buy-btn::after{content:'';position:absolute;top:-50%;left:-60%;width:40%;height:200%;background:rgba(255,255,255,.15);transform:skewX(-20deg);transition:left .5s}
+.buy-btn:hover{box-shadow:0 6px 26px rgba(27,79,232,.45);transform:translateY(-1px)}
+.buy-btn:hover::after{left:120%}
+.buy-btn:active{transform:scale(.98)}
+@keyframes cardIn{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
+.card{animation:cardIn .38s ease both}
+
+/* ═══════════════════════════════════════
+   EMPTY STATE
+═══════════════════════════════════════ */
+.empty{grid-column:1/-1;text-align:center;padding:96px 20px;color:var(--text3)}
+.empty-icon{font-size:52px;opacity:.25;margin-bottom:20px;display:block}
+.empty p{font-size:16px;letter-spacing:1.5px}
+
+/* ═══════════════════════════════════════
+   SCROLL TO TOP
+═══════════════════════════════════════ */
+.scroll-top{
+  position:fixed;bottom:32px;right:32px;z-index:150;
+  background:var(--grad);
+  border:none;color:#fff;
+  width:46px;height:46px;border-radius:50%;
+  cursor:pointer;
+  box-shadow:0 4px 20px rgba(27,79,232,.45);
+  display:flex;align-items:center;justify-content:center;
+  opacity:0;transform:translateY(16px);
+  transition:opacity .25s,transform .25s;
+  pointer-events:none;
+}
+.scroll-top.visible{opacity:1;transform:translateY(0);pointer-events:auto}
+.scroll-top:hover{box-shadow:0 6px 28px rgba(27,79,232,.65)}
+
+/* ═══════════════════════════════════════
+   PRODUCT DETAIL MODAL (ecommerce)
+═══════════════════════════════════════ */
+.pd-overlay{
+  position:fixed;inset:0;z-index:200;
+  background:rgba(5,8,20,0.88);
+  backdrop-filter:blur(14px);
+  -webkit-backdrop-filter:blur(14px);
+  display:flex;align-items:center;justify-content:center;
+  opacity:0;pointer-events:none;
+  transition:opacity .3s;
+  padding:16px;
+}
+.pd-overlay.open{opacity:1;pointer-events:auto}
+
+.pd-modal{
+  background:var(--bg2);
+  border:1px solid var(--border);
+  border-radius:24px;
+  width:100%;max-width:920px;
+  max-height:92vh;
+  overflow:hidden;
+  display:flex;
+  flex-direction:row;
+  box-shadow:0 40px 120px rgba(0,0,0,.7);
+  transform:scale(.95) translateY(20px);
+  transition:transform .32s cubic-bezier(.22,1,.36,1);
+  position:relative;
+}
+.pd-overlay.open .pd-modal{transform:scale(1) translateY(0)}
+
+.pd-close{
+  position:absolute;top:14px;right:14px;z-index:10;
+  background:rgba(255,255,255,.07);
+  border:1px solid rgba(255,255,255,.1);
+  color:var(--text2);
+  width:36px;height:36px;border-radius:50%;
+  cursor:pointer;transition:all .2s;
+  display:flex;align-items:center;justify-content:center;
+}
+.pd-close:hover{background:rgba(255,255,255,.14);color:var(--text)}
+
+/* GALLERY SIDE */
+.pd-gallery{
+  width:52%;flex-shrink:0;
+  background:var(--bg3);
+  display:flex;flex-direction:column;
+  position:relative;
+  overflow:hidden;
+}
+.gallery-main{
+  flex:1;position:relative;
+  overflow:hidden;
+  min-height:300px;
+}
+.gallery-main-img{
+  width:100%;height:100%;
+  object-fit:cover;
+  display:block;
+  transition:opacity .25s;
+  cursor:zoom-in;
+}
+.gallery-arrow{
+  position:absolute;top:50%;transform:translateY(-50%);
+  background:rgba(10,10,28,.65);
+  backdrop-filter:blur(8px);
+  border:1px solid rgba(255,255,255,.12);
+  color:#fff;
+  width:40px;height:40px;border-radius:50%;
+  cursor:pointer;transition:all .2s;
+  display:flex;align-items:center;justify-content:center;
+  font-size:20px;line-height:1;
+  z-index:5;
+}
+.gallery-arrow:hover{background:rgba(27,79,232,.55);border-color:rgba(27,79,232,.6)}
+.gallery-arrow.prev{left:12px}
+.gallery-arrow.next{right:12px}
+.gallery-arrow[hidden]{display:none}
+.gallery-counter{
+  position:absolute;bottom:12px;right:12px;
+  background:rgba(10,10,28,.7);
+  border-radius:50px;
+  font-size:11px;font-weight:600;letter-spacing:.5px;
+  color:var(--text2);
+  padding:3px 10px;
+}
+.gallery-thumbs{
+  display:flex;gap:6px;
+  padding:10px;
+  background:rgba(0,0,0,.3);
+  overflow-x:auto;
+  flex-shrink:0;
+}
+.gallery-thumbs::-webkit-scrollbar{display:none}
+.gallery-thumb{
+  width:56px;height:72px;flex-shrink:0;
+  object-fit:cover;
+  border-radius:8px;
+  cursor:pointer;
+  border:2px solid transparent;
+  transition:border-color .2s,opacity .2s;
+  opacity:.55;
+}
+.gallery-thumb.active{border-color:var(--blue);opacity:1}
+.gallery-thumb:hover{opacity:.85}
+
+/* INFO SIDE */
+.pd-info{
+  flex:1;
+  overflow-y:auto;
+  padding:32px 30px 30px;
+  display:flex;flex-direction:column;
+}
+.pd-info::-webkit-scrollbar{width:3px}
+.pd-info::-webkit-scrollbar-thumb{background:var(--purple2);border-radius:2px}
+.pd-league{
+  font-size:10px;font-weight:700;letter-spacing:3px;
+  text-transform:uppercase;color:var(--blue);
+  margin-bottom:10px;
+  display:flex;align-items:center;gap:7px;
+}
+.pd-league::before{content:'';width:3px;height:12px;background:var(--grad);border-radius:2px;flex-shrink:0}
+.pd-name{
+  font-family:'Oswald',sans-serif;
+  font-size:clamp(26px,4vw,36px);
+  font-weight:700;line-height:1.05;
+  color:var(--text);
+  margin-bottom:6px;
+}
+.pd-sub{font-size:14px;color:var(--text2);letter-spacing:.5px;margin-bottom:20px}
+.pd-divider{height:1px;background:var(--border);margin:0 0 20px}
+.pd-quality{
+  background:rgba(59,110,240,.08);
+  border:1px solid rgba(59,110,240,.18);
+  border-radius:12px;
+  padding:14px 16px;
+  margin-bottom:20px;
+}
+.pd-quality-title{
+  font-size:11px;font-weight:700;letter-spacing:2px;
+  text-transform:uppercase;color:var(--blue);
+  margin-bottom:8px;
+}
+.pd-quality-list{list-style:none;display:flex;flex-direction:column;gap:5px}
+.pd-quality-list li{
+  font-size:13px;color:var(--text2);
+  display:flex;align-items:center;gap:8px;
+}
+.pd-quality-list li::before{content:'✓';color:var(--blue);font-weight:700;font-size:12px}
+
+.pd-size-section{margin-bottom:22px}
+.pd-size-label{
+  font-size:12px;font-weight:700;letter-spacing:2px;
+  text-transform:uppercase;color:var(--text2);
+  margin-bottom:10px;
+  display:flex;align-items:center;gap:8px;
+}
+.pd-size-label span{color:var(--text);font-size:14px}
+.sizes{display:flex;gap:7px;flex-wrap:wrap}
+.size-btn{
+  min-width:44px;height:44px;padding:0 10px;
+  background:rgba(255,255,255,.04);
+  border:1.5px solid rgba(255,255,255,.1);
+  color:var(--text2);
+  font-family:'Oswald',sans-serif;
+  font-size:14px;font-weight:600;letter-spacing:1px;
+  border-radius:10px;cursor:pointer;
+  transition:all .2s;
+}
+.size-btn:hover{border-color:rgba(59,110,240,.5);color:var(--text);background:rgba(59,110,240,.08)}
+.size-btn.active{
+  background:var(--grad);color:#fff;
+  border-color:transparent;
+  box-shadow:0 3px 14px rgba(27,79,232,.35);
+}
+
+.pd-buy-btn{
+  background:var(--grad);
+  border:none;color:#fff;
+  font-family:'Oswald',sans-serif;
+  font-size:15px;font-weight:700;letter-spacing:2.5px;
+  padding:15px 0;border-radius:14px;
+  cursor:pointer;width:100%;
+  transition:all .25s;
+  position:relative;overflow:hidden;
+  margin-bottom:10px;
+  box-shadow:0 6px 28px rgba(27,79,232,.35);
+}
+.pd-buy-btn::after{content:'';position:absolute;top:-50%;left:-60%;width:40%;height:200%;background:rgba(255,255,255,.18);transform:skewX(-20deg);transition:left .5s}
+.pd-buy-btn:hover{box-shadow:0 10px 38px rgba(27,79,232,.6);transform:translateY(-2px)}
+.pd-buy-btn:hover::after{left:120%}
+.pd-buy-btn:active{transform:scale(.98)}
+.pd-hint{font-size:11px;color:var(--text3);text-align:center;letter-spacing:.5px}
+
+/* ═══════════════════════════════════════
+   COPY MODAL (after buy click)
+═══════════════════════════════════════ */
+.copy-overlay{
+  position:fixed;inset:0;z-index:300;
+  background:rgba(5,8,20,0.85);
+  backdrop-filter:blur(14px);
+  display:flex;align-items:center;justify-content:center;
+  opacity:0;pointer-events:none;
+  transition:opacity .25s;
+  padding:16px;
+}
+.copy-overlay.open{opacity:1;pointer-events:auto}
+.copy-modal{
+  background:var(--bg2);
+  border:1px solid var(--border);
+  border-radius:20px;
+  width:100%;max-width:480px;
+  padding:28px;
+  box-shadow:0 30px 80px rgba(0,0,0,.65);
+  transform:scale(.95) translateY(20px);
+  transition:transform .3s cubic-bezier(.22,1,.36,1);
+  position:relative;
+}
+.copy-overlay.open .copy-modal{transform:scale(1) translateY(0)}
+.copy-modal-bar{width:36px;height:3px;background:var(--grad);border-radius:2px;margin:0 auto 22px}
+.copy-modal-close{
+  position:absolute;top:14px;right:14px;
+  background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.09);
+  color:var(--text3);width:32px;height:32px;border-radius:50%;
+  cursor:pointer;transition:all .2s;
+  display:flex;align-items:center;justify-content:center;
+}
+.copy-modal-close:hover{background:rgba(255,255,255,.12);color:var(--text)}
+.copy-modal h2{
+  font-family:'Oswald',sans-serif;font-size:22px;font-weight:700;letter-spacing:1px;
+  margin-bottom:4px;
+  background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.copy-modal .sub{font-size:13px;color:var(--text2);margin-bottom:18px;line-height:1.5}
+.copy-notice{
+  display:flex;align-items:center;gap:9px;
+  background:rgba(123,232,160,.07);border:1px solid rgba(123,232,160,.18);
+  border-radius:10px;padding:10px 14px;margin-bottom:14px;
+  font-size:12px;color:#7BE8A0;letter-spacing:.5px;
+}
+.copy-msg{
+  background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);
+  border-radius:12px;padding:14px 16px;
+  font-size:14px;color:var(--text);white-space:pre-wrap;line-height:1.75;
+  margin-bottom:18px;font-family:'Barlow Condensed',sans-serif;
+}
+.copy-actions{display:flex;gap:10px}
+.copy-actions button{
+  flex:1;font-family:'Oswald',sans-serif;
+  font-size:14px;font-weight:700;letter-spacing:1.5px;
+  padding:13px;border-radius:12px;cursor:pointer;transition:all .22s;
+}
+.btn-ig{background:var(--grad);color:#fff;border:none;box-shadow:0 4px 18px rgba(27,79,232,.32)}
+.btn-ig:hover{box-shadow:0 6px 28px rgba(27,79,232,.55);transform:translateY(-1px)}
+.btn-copy-close{background:rgba(255,255,255,.05);color:var(--text2);border:1px solid rgba(255,255,255,.08)}
+.btn-copy-close:hover{background:rgba(255,255,255,.09);color:var(--text)}
+
+/* ═══════════════════════════════════════
+   FOOTER
+═══════════════════════════════════════ */
+footer{border-top:1px solid var(--border);background:var(--bg2);padding:52px 32px 36px}
+.footer-inner{max-width:1340px;margin:0 auto;display:flex;flex-direction:column;align-items:center;gap:18px;text-align:center}
+.footer-logo{font-family:'Oswald',sans-serif;font-size:34px;font-weight:700;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;letter-spacing:6px}
+.footer-divider{width:48px;height:2px;background:var(--grad);border-radius:1px;opacity:.4}
+.footer-tagline{font-size:14px;color:var(--text2);letter-spacing:1.5px}
+.footer-ig{display:inline-flex;align-items:center;gap:8px;font-family:'Oswald',sans-serif;font-size:14px;font-weight:600;letter-spacing:1px;color:var(--blue);text-decoration:none;padding:9px 22px;border:1px solid rgba(27,79,232,.28);border-radius:50px;transition:all .22s}
+.footer-ig:hover{background:rgba(27,79,232,.1);border-color:rgba(27,79,232,.55)}
+.footer-copy{font-size:11px;color:var(--text3);letter-spacing:.5px;margin-top:6px}
+
+/* ═══════════════════════════════════════
+   RESPONSIVE
+═══════════════════════════════════════ */
+@media(max-width:900px){
+  .hero-stat{padding:0 20px}
+  .pd-modal{flex-direction:column;max-height:96vh;overflow-y:auto}
+  .pd-gallery{width:100%;max-height:55vw;min-height:260px}
+  .gallery-main{min-height:200px}
+  .pd-info{padding:22px 20px 24px}
+}
+@media(max-width:640px){
+  header{padding:0 16px}
+  .header-search{display:none}
+  .hero{padding:52px 16px 44px}
+  .hero-stat{padding:0 14px}
+  .stat-num{font-size:24px}
+  .filter-bar-wrap{padding:0 12px}
+  .section{padding:20px 14px 56px}
+  .grid{grid-template-columns:repeat(2,1fr);gap:12px}
+  .card-name{font-size:17px}
+  .scroll-top{bottom:20px;right:16px;width:40px;height:40px}
+  .pd-modal{border-radius:18px}
+  .pd-gallery{max-height:62vw}
+  .copy-modal{padding:22px}
+  .copy-actions{flex-direction:column}
+  footer{padding:40px 16px 28px}
+}
+@media(max-width:380px){
+  .grid{gap:10px}
+  .card-name{font-size:15px}
+  .card-body{padding:12px 12px 14px}
+}
+/* ===== Tema claro (off-white) — ajustes de superfície ===== */
+.header-search input{background:#fff;border-color:var(--border)}
+.header-search input:focus{background:#fff;border-color:rgba(59,110,240,.5)}
+.lang-btn{background:#fff;border-color:var(--border)}
+.lang-btn:hover{background:rgba(139,67,200,.10)}
+.cat-btn{background:#fff;border-color:var(--border)}
+.cat-btn .count{background:rgba(0,0,0,.06)}
+.cat-btn:hover{background:rgba(59,110,240,.08)}
+.size-btn{background:#fff;border-color:var(--border)}
+.pd-close{background:rgba(0,0,0,.05);border-color:var(--border)}
+.pd-close:hover{background:rgba(0,0,0,.10)}
+.copy-modal-close{background:rgba(0,0,0,.05);border-color:var(--border)}
+.copy-modal-close:hover{background:rgba(0,0,0,.10)}
+.copy-msg{background:var(--bg);border-color:var(--border)}
+.btn-copy-close{background:rgba(0,0,0,.05);color:var(--text2);border:1px solid var(--border)}
+.btn-copy-close:hover{background:rgba(0,0,0,.09)}
+.skel{background-image:linear-gradient(90deg,rgba(0,0,0,.05) 25%,rgba(0,0,0,.10) 50%,rgba(0,0,0,.05) 75%)}
+</style>
+</head>
+<body>
+
+<!-- ═══ HEADER ═══ -->
+<header>
+  <div class="header-inner">
+    <div class="logo" onclick="setCategory('all')">9TEAM</div>
+    <div class="header-search">
+      <span class="search-icon">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+        </svg>
+      </span>
+      <input type="text" id="searchInput" placeholder="Buscar camiseta..." oninput="filterProducts()"/>
+    </div>
+    <div class="header-right">
+      <button class="lang-btn" onclick="toggleLang()" id="langBtn">🇦🇺 EN</button>
+      <button class="ig-btn" onclick="window.open('https://instagram.com/9teamstore','_blank')">
+        📲 @9teamstore
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- ═══ HERO ═══ -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-copy">
+      <p class="hero-eyebrow" data-t="hero_eyebrow">Camisetas Premium</p>
+      <h1 data-t="hero_title">CAMISETAS PREMIUM</h1>
+      <p class="hero-sub" data-t="hero_sub">Qual vai ser a sua?</p>
+      <div class="hero-cta-row">
+        <button class="hero-cta" onclick="document.querySelector('.filter-bar-wrap').scrollIntoView({behavior:'smooth'})">VER COLEÇÃO ⚽</button>
+        <span class="hero-offer">🚚 Frente e verso · entrega rápida</span>
+      </div>
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <span class="stat-num" id="statProducts">66</span>
+          <span class="stat-label" data-t="stat_products">Produtos</span>
+        </div>
+        <div class="hero-stat">
+          <span class="stat-num">10+</span>
+          <span class="stat-label" data-t="stat_leagues">Ligas</span>
+        </div>
+        <div class="hero-stat">
+          <span class="stat-num">⚡</span>
+          <span class="stat-label" data-t="stat_ship">Entrega Rápida</span>
+        </div>
+      </div>
+    </div>
+    <div class="hero-showcase">
+      <img class="jersey j1" src="imgs/1.jpeg"  alt="Flamengo"  onerror="this.style.display='none'">
+      <img class="jersey j2" src="imgs/19.jpeg" alt="Brasil"    onerror="this.style.display='none'">
+      <img class="jersey j3" src="imgs/2.jpeg"  alt="Palmeiras" onerror="this.style.display='none'">
+      <svg class="hero-ball b1" viewBox="0 0 64 64" aria-hidden="true">
+        <circle cx="32" cy="32" r="30" fill="#fff" stroke="#16357A" stroke-width="2"/>
+        <polygon points="32,17 42,25 38,37 26,37 22,25" fill="#16357A"/>
+        <g stroke="#16357A" stroke-width="2" fill="none">
+          <path d="M32 17V6"/><path d="M42 25l9-4"/><path d="M38 37l8 9"/><path d="M26 37l-8 9"/><path d="M22 25l-9-4"/>
+        </g>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FILTER BAR ═══ -->
+<div class="filter-bar-wrap">
+  <div class="filter-bar">
+    <button class="cat-btn active" data-cat="all"    onclick="setCategory('all')"     data-t-cat="cat_all">Todos <span class="count" id="cntAll"></span></button>
+    <button class="cat-btn"        data-cat="times"  onclick="setCategory('times')"   data-t-cat="cat_times">Times <span class="count" id="cntTimes"></span></button>
+    <button class="cat-btn"        data-cat="selecoes" onclick="setCategory('selecoes')" data-t-cat="cat_selecoes">Seleções <span class="count" id="cntSelecoes"></span></button>
+    <button class="cat-btn"        data-cat="retro"  onclick="setCategory('retro')"   data-t-cat="cat_retro">Retrô <span class="count" id="cntRetro"></span></button>
+    <button class="cat-btn"        data-cat="kids"   onclick="setCategory('kids')"    data-t-cat="cat_kids">Kids <span class="count" id="cntKids"></span></button>
+    <button class="cat-btn"        data-cat="kits"   onclick="setCategory('kits')"    data-t-cat="cat_kits">Kits &amp; Jaquetas <span class="count" id="cntKits"></span></button>
+  </div>
+</div>
+
+<!-- ═══ GRID ═══ -->
+<div style="background:var(--bg)">
+  <div class="section">
+    <div class="section-header">
+      <span class="result-count" id="resultCount"></span>
+    </div>
+    <div class="grid" id="grid"></div>
+  </div>
+</div>
+
+<!-- ═══ SCROLL TOP ═══ -->
+<button class="scroll-top" id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+    <polyline points="18 15 12 9 6 15"/>
+  </svg>
+</button>
+
+<!-- ═══ PRODUCT DETAIL MODAL ═══ -->
+<div id="pdOverlay" class="pd-overlay" onclick="pdOverlayClick(event)">
+  <div class="pd-modal" id="pdModal">
+    <button class="pd-close" onclick="closePD()">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+        <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+      </svg>
+    </button>
+
+    <!-- Gallery -->
+    <div class="pd-gallery">
+      <div class="gallery-main">
+        <img id="galleryMain" class="gallery-main-img" src="" alt="" onclick="galleryNext()"/>
+        <button class="gallery-arrow prev" id="galleryPrev" onclick="galleryMove(-1)">&#8249;</button>
+        <button class="gallery-arrow next" id="galleryNext" onclick="galleryMove(1)">&#8250;</button>
+        <div class="gallery-counter" id="galleryCounter">1 / 1</div>
+      </div>
+      <div class="gallery-thumbs" id="galleryThumbs"></div>
+    </div>
+
+    <!-- Info -->
+    <div class="pd-info">
+      <div class="pd-league" id="pdLeague"></div>
+      <h2 class="pd-name" id="pdName"></h2>
+      <p class="pd-sub" id="pdSub"></p>
+      <div class="pd-divider"></div>
+
+      <div class="pd-quality">
+        <div class="pd-quality-title" data-t="quality_title">Qualidade Premium</div>
+        <ul class="pd-quality-list">
+          <li data-t="q1">Tecido tailandês — igual ao original oficial</li>
+          <li data-t="q2">Bordado e silk screen de alta definição</li>
+          <li data-t="q3">Numeração e nome personalizados</li>
+          <li data-t="q4">Disponível tamanhos S ao XXL</li>
+        </ul>
+      </div>
+
+      <div class="pd-size-section">
+        <div class="pd-size-label" data-t="size_label">Tamanho: <span id="selectedSizeLabel">L</span></div>
+        <div class="sizes">
+          <button class="size-btn" onclick="selectSize(this,'S')">S</button>
+          <button class="size-btn" onclick="selectSize(this,'M')">M</button>
+          <button class="size-btn active" onclick="selectSize(this,'L')">L</button>
+          <button class="size-btn" onclick="selectSize(this,'XL')">XL</button>
+          <button class="size-btn" onclick="selectSize(this,'XXL')">XXL</button>
+        </div>
+      </div>
+
+      <button class="pd-buy-btn" id="pdBuyBtn" onclick="handleBuyFromModal()" data-t="buy_btn">
+        📲 PEDIR VIA INSTAGRAM
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ COPY/CONFIRM MODAL ═══ -->
+<div id="copyOverlay" class="copy-overlay" onclick="copyOverlayClick(event)">
+  <div class="copy-modal">
+    <div class="copy-modal-bar"></div>
+    <button class="copy-modal-close" onclick="closeCopy()">
+      <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+        <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+      </svg>
+    </button>
+    <h2 data-t="modal_title">Quase lá!</h2>
+    <p class="sub" data-t="modal_sub">Copiamos a mensagem. É só colar no Instagram!</p>
+    <div class="copy-notice">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+      <span data-t="modal_copy">Mensagem copiada para a área de transferência</span>
+    </div>
+    <div class="copy-msg" id="copyMsg"></div>
+    <div class="copy-actions">
+      <button class="btn-ig"        onclick="openIG()"  data-t="modal_ig">📲 Abrir Instagram</button>
+      <button class="btn-copy-close" onclick="closeCopy()" data-t="modal_close">Fechar</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ FOOTER ═══ -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">9TEAM</div>
+    <div class="footer-divider"></div>
+    <p class="footer-tagline" data-t="footer_txt">Camisetas premium com entrega rápida</p>
+    <a class="footer-ig" href="https://instagram.com/9teamstore" target="_blank">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+      @9teamstore
+    </a>
+    <p class="footer-copy">© 2025 9TEAM. Todos os direitos reservados.</p>
+  </div>
+</footer>
+
+<script>
+/* ════════════════════════════════════════
+   PRODUCTS
+   imgs: array de fotos { i: photoId, e: ext }
+   Primeira foto = frente, segunda = verso, etc.
+════════════════════════════════════════ */
+const P = [
+  // ── Série A ─────────────────────────────────────────────────────
+  {id:1,  name:'Flamengo',              nameen:'Flamengo',
+          sub:'Camisa Premium 2025',    suben:'Premium Jersey 2025',
+          cat:'times', feat:true,  league:'Série A',
+          imgs:[{i:'301c46b24b',e:'jpeg'},{i:'e91137c6e1',e:'jpeg'}]},
+  {id:2,  name:'Palmeiras',             nameen:'Palmeiras',
+          sub:'Camisa Premium 2025',    suben:'Premium Jersey 2025',
+          cat:'times', feat:true,  league:'Série A',
+          imgs:[{i:'6e19381355',e:'jpeg'},{i:'e37b2dd9bd',e:'jpeg'}]},
+  {id:3,  name:'Corinthians',           nameen:'Corinthians',
+          sub:'Camisa Premium 2025',    suben:'Premium Jersey 2025',
+          cat:'times', feat:false, league:'Série A',
+          imgs:[{i:'c6556b1b1f',e:'jpeg'},{i:'d972416559',e:'jpeg'},{i:'c3ce20def4',e:'jpeg'},{i:'643a94f7d6',e:'jpeg'},{i:'2c4bfe6006',e:'jpeg'}]},
+  {id:4,  name:'Fluminense',            nameen:'Fluminense',
+          sub:'Camisa Premium 2025',    suben:'Premium Jersey 2025',
+          cat:'times', feat:false, league:'Série A',
+          imgs:[{i:'04835350db',e:'jpeg'},{i:'3ff15157f8',e:'jpeg'}]},
+  {id:5,  name:'Cruzeiro',              nameen:'Cruzeiro',
+          sub:'Camisa Premium 2025',    suben:'Premium Jersey 2025',
+          cat:'times', feat:false, league:'Série A',
+          imgs:[{i:'f7fffb1075',e:'jpeg'}]},
+  {id:48, name:'Santos',                nameen:'Santos',
+          sub:'Camisa Premium 2025',    suben:'Premium Jersey 2025',
+          cat:'times', feat:false, league:'Série A',
+          imgs:[{i:'728e17021e',e:'png'},{i:'70444c4f7f',e:'png'},{i:'d4b63c0aaf',e:'png'},{i:'845cec265a',e:'png'},{i:'d4d23e5958',e:'png'},{i:'c591f79ac5',e:'png'},{i:'8caefa0743',e:'png'},{i:'e950f7e4cb',e:'png'}]},
+  {id:49, name:'Internacional',         nameen:'Internacional',
+          sub:'Camisa Premium 2025',    suben:'Premium Jersey 2025',
+          cat:'times', feat:false, league:'Série A',
+          imgs:[{i:'de87b48586',e:'jpeg'}]},
+  {id:50, name:'Atlético Mineiro',      nameen:'Atlético Mineiro',
+          sub:'Camisa Premium 2025',    suben:'Premium Jersey 2025',
+          cat:'times', feat:false, league:'Série A',
+          imgs:[{i:'d8da91403a',e:'jpeg'},{i:'d0b48f3ae4',e:'jpeg'}]},
+  {id:51, name:'Grêmio',                nameen:'Grêmio',
+          sub:'Camisa Premium 2025',    suben:'Premium Jersey 2025',
+          cat:'times', feat:false, league:'Série A',
+          imgs:[{i:'d33745614a',e:'jpeg'},{i:'eb563e2631',e:'jpeg'}]},
+  {id:52, name:'Botafogo',              nameen:'Botafogo',
+          sub:'Camisa Premium 2025',    suben:'Premium Jersey 2025',
+          cat:'times', feat:false, league:'Série A',
+          imgs:[{i:'e36b989f03',e:'jpeg'},{i:'036ca517c7',e:'jpeg'}]},
+  {id:53, name:'Bahia',                 nameen:'Bahia',
+          sub:'Camisa Premium 2025',    suben:'Premium Jersey 2025',
+          cat:'times', feat:false, league:'Série A',
+          imgs:[{i:'c81c2f345a',e:'jpeg'},{i:'71ff2c5be3',e:'jpeg'}]},
+  {id:54, name:'São Paulo',             nameen:'São Paulo',
+          sub:'Camisa Premium 2025',    suben:'Premium Jersey 2025',
+          cat:'times', feat:false, league:'Série A',
+          imgs:[{i:'94198d7e52',e:'jpeg'},{i:'0dfd79d85b',e:'jpeg'},{i:'edaefe16fa',e:'jpeg'},{i:'386483d170',e:'jpeg'}]},
+  {id:55, name:'Vitória',               nameen:'Vitória',
+          sub:'Camisa Premium 2025',    suben:'Premium Jersey 2025',
+          cat:'times', feat:false, league:'Série A',
+          imgs:[{i:'ba2b69430a',e:'jpeg'},{i:'10b687b648',e:'jpeg'}]},
+  {id:56, name:'Athletico Paranaense',  nameen:'Athletico Paranaense',
+          sub:'Camisa Premium 2025',    suben:'Premium Jersey 2025',
+          cat:'times', feat:false, league:'Série A',
+          imgs:[{i:'3c8408318d',e:'jpeg'}]},
+  {id:57, name:'Vasco da Gama',         nameen:'Vasco da Gama',
+          sub:'Camisa Premium 2025',    suben:'Premium Jersey 2025',
+          cat:'times', feat:false, league:'Série A',
+          imgs:[{i:'cf9b3906',e:'jpg'},{i:'2a908aed',e:'jpg'}]},
+  {id:58, name:'Sport Recife',          nameen:'Sport Recife',
+          sub:'Camisa Premium 2025',    suben:'Premium Jersey 2025',
+          cat:'times', feat:false, league:'Série A',
+          imgs:[{i:'97878cd9c6',e:'jpeg'},{i:'1995fb426d',e:'jpeg'}]},
+
+  // ── Premier League ───────────────────────────────────────────────
+  {id:6,  name:'Manchester United',     nameen:'Manchester United',
+          sub:'Camisa Premier League',  suben:'Premier League Jersey',
+          cat:'times', feat:true,  league:'Premier League',
+          imgs:[{i:'97118c90c7',e:'jpeg'},{i:'ff4986828c',e:'jpeg'}]},
+  {id:7,  name:'Arsenal',               nameen:'Arsenal',
+          sub:'Camisa Premier League',  suben:'Premier League Jersey',
+          cat:'times', feat:false, league:'Premier League',
+          imgs:[{i:'cd1fb95d71',e:'jpeg'},{i:'0cf2203025',e:'jpeg'}]},
+  {id:8,  name:'Chelsea',               nameen:'Chelsea',
+          sub:'Camisa Premier League',  suben:'Premier League Jersey',
+          cat:'times', feat:false, league:'Premier League',
+          imgs:[{i:'1f385c76ca',e:'jpeg'},{i:'d38398c952',e:'jpeg'}]},
+  {id:9,  name:'Manchester City',       nameen:'Manchester City',
+          sub:'Camisa Premier League',  suben:'Premier League Jersey',
+          cat:'times', feat:false, league:'Premier League',
+          imgs:[{i:'6dbcb88a00',e:'jpeg'},{i:'11ae7b94a9',e:'jpeg'}]},
+  {id:10, name:'Tottenham',             nameen:'Tottenham',
+          sub:'Camisa Premier League',  suben:'Premier League Jersey',
+          cat:'times', feat:false, league:'Premier League',
+          imgs:[{i:'4c14f16d72',e:'jpeg'},{i:'1fc7355e60',e:'jpeg'}]},
+
+  // ── La Liga ──────────────────────────────────────────────────────
+  {id:11, name:'Real Madrid',           nameen:'Real Madrid',
+          sub:'Camisa La Liga',         suben:'La Liga Jersey',
+          cat:'times', feat:true,  league:'La Liga',
+          imgs:[{i:'4453504a05',e:'jpeg'},{i:'cf4611f649',e:'jpeg'}]},
+  {id:12, name:'Barcelona',             nameen:'Barcelona',
+          sub:'Camisa La Liga',         suben:'La Liga Jersey',
+          cat:'times', feat:true,  league:'La Liga',
+          imgs:[{i:'f55129ba08',e:'jpeg'},{i:'a68d368677',e:'jpeg'},{i:'31104a0b59',e:'jpeg'},{i:'865575624f',e:'jpeg'}]},
+  {id:36, name:'Atlético Madrid',       nameen:'Atlético Madrid',
+          sub:'Camisa La Liga',         suben:'La Liga Jersey',
+          cat:'times', feat:false, league:'La Liga',
+          imgs:[{i:'741994ed',e:'jpg'},{i:'ce841501',e:'jpg'}]},
+  {id:37, name:'Sevilla',               nameen:'Sevilla',
+          sub:'Camisa La Liga',         suben:'La Liga Jersey',
+          cat:'times', feat:false, league:'La Liga',
+          imgs:[{i:'92a363f08b',e:'jpeg'},{i:'0f9e3458e7',e:'jpeg'}]},
+  {id:38, name:'Valencia',              nameen:'Valencia',
+          sub:'Camisa La Liga',         suben:'La Liga Jersey',
+          cat:'times', feat:false, league:'La Liga',
+          imgs:[{i:'1896c7ff1f',e:'jpeg'},{i:'9b15d8513c',e:'jpeg'}]},
+
+  // ── Bundesliga ───────────────────────────────────────────────────
+  {id:13, name:'Bayern de Munique',     nameen:'Bayern Munich',
+          sub:'Camisa Bundesliga',      suben:'Bundesliga Jersey',
+          cat:'times', feat:true,  league:'Bundesliga',
+          imgs:[{i:'758df2ad35',e:'jpeg'},{i:'ed0284d3f4',e:'jpeg'}]},
+  {id:14, name:'Borussia Dortmund',     nameen:'Borussia Dortmund',
+          sub:'Camisa Bundesliga',      suben:'Bundesliga Jersey',
+          cat:'times', feat:false, league:'Bundesliga',
+          imgs:[{i:'b64af9da69',e:'jpeg'},{i:'2289612cb0',e:'jpeg'}]},
+  {id:42, name:'Eintracht Frankfurt',   nameen:'Eintracht Frankfurt',
+          sub:'Camisa Bundesliga',      suben:'Bundesliga Jersey',
+          cat:'times', feat:false, league:'Bundesliga',
+          imgs:[{i:'45b1c92af0',e:'jpeg'},{i:'49e339eb90',e:'jpeg'}]},
+  {id:43, name:'Schalke 04',            nameen:'Schalke 04',
+          sub:'Camisa Bundesliga',      suben:'Bundesliga Jersey',
+          cat:'times', feat:false, league:'Bundesliga',
+          imgs:[{i:'fe6ec6a73f',e:'jpeg'},{i:'5f7243d68f',e:'jpeg'}]},
+
+  // ── Serie A Italiana ─────────────────────────────────────────────
+  {id:16, name:'Inter de Milão',        nameen:'Inter Milan',
+          sub:'Camisa Serie A',         suben:'Serie A Jersey',
+          cat:'times', feat:false, league:'Serie A',
+          imgs:[{i:'ce3b69c0',e:'jpg'},{i:'a8a1f9f7',e:'jpg'}]},
+  {id:17, name:'Napoli',                nameen:'Napoli',
+          sub:'Camisa Serie A',         suben:'Serie A Jersey',
+          cat:'times', feat:false, league:'Serie A',
+          imgs:[{i:'efef4b5e',e:'jpg'},{i:'0eff18c9',e:'jpg'}]},
+  {id:18, name:'AC Milan',              nameen:'AC Milan',
+          sub:'Camisa Serie A',         suben:'Serie A Jersey',
+          cat:'times', feat:false, league:'Serie A',
+          imgs:[{i:'09385a32',e:'jpg'},{i:'47dc0a87',e:'jpg'}]},
+  {id:44, name:'Roma',                  nameen:'AS Roma',
+          sub:'Camisa Serie A',         suben:'Serie A Jersey',
+          cat:'times', feat:false, league:'Serie A',
+          imgs:[{i:'4f14331d',e:'jpg'}]},
+  {id:45, name:'Lazio',                 nameen:'Lazio',
+          sub:'Camisa Serie A',         suben:'Serie A Jersey',
+          cat:'times', feat:false, league:'Serie A',
+          imgs:[{i:'5da5fb78',e:'jpeg'},{i:'48f1fc61',e:'jpeg'}]},
+  {id:46, name:'Fiorentina',            nameen:'Fiorentina',
+          sub:'Camisa Serie A',         suben:'Serie A Jersey',
+          cat:'times', feat:false, league:'Serie A',
+          imgs:[{i:'c4eba399',e:'jpg'},{i:'df74a635',e:'jpg'}]},
+  {id:47, name:'Atalanta',              nameen:'Atalanta',
+          sub:'Camisa Serie A',         suben:'Serie A Jersey',
+          cat:'times', feat:false, league:'Serie A',
+          imgs:[{i:'3c8a0938',e:'jpeg'},{i:'3bdf5f40',e:'jpeg'}]},
+
+  // ── Ligue 1 ──────────────────────────────────────────────────────
+  {id:15, name:'Paris Saint-Germain',   nameen:'Paris Saint-Germain',
+          sub:'Camisa Ligue 1',         suben:'Ligue 1 Jersey',
+          cat:'times', feat:true,  league:'Ligue 1',
+          imgs:[{i:'ca571a5415',e:'jpeg'},{i:'911b9b8506',e:'jpeg'}]},
+  {id:39, name:'Lyon',                  nameen:'Olympique Lyon',
+          sub:'Camisa Ligue 1',         suben:'Ligue 1 Jersey',
+          cat:'times', feat:false, league:'Ligue 1',
+          imgs:[{i:'c2679c7c',e:'jpg'},{i:'f21fd5fd',e:'jpg'}]},
+  {id:40, name:'Marseille',             nameen:'Olympique Marseille',
+          sub:'Camisa Ligue 1',         suben:'Ligue 1 Jersey',
+          cat:'times', feat:false, league:'Ligue 1',
+          imgs:[{i:'f81aadbd',e:'jpg'},{i:'0d9995ca',e:'jpg'}]},
+  {id:41, name:'Monaco',                nameen:'AS Monaco',
+          sub:'Camisa Ligue 1',         suben:'Ligue 1 Jersey',
+          cat:'times', feat:false, league:'Ligue 1',
+          imgs:[{i:'7ace2d71',e:'jpeg'},{i:'f462842b',e:'jpeg'}]},
+
+  // ── Seleções ─────────────────────────────────────────────────────
+  {id:19, name:'Brasil',                nameen:'Brazil',
+          sub:'Seleção Brasileira',     suben:'Brazil National Team',
+          cat:'selecoes', feat:true, league:'Seleções',
+          imgs:[{i:'d49dc8ad41',e:'jpeg'},{i:'36cac3af7e',e:'jpeg'},{i:'c1c61ca42f',e:'jpeg'}]},
+  {id:20, name:'Argentina',             nameen:'Argentina',
+          sub:'Seleção Argentina',      suben:'Argentina National Team',
+          cat:'selecoes', feat:true, league:'Seleções',
+          imgs:[{i:'097ca50662',e:'jpeg'},{i:'a68ff0f383',e:'jpeg'},{i:'db2c881091',e:'jpeg'},{i:'265c1621bc',e:'jpeg'},{i:'2921e44142',e:'jpeg'}]},
+  {id:21, name:'França',                nameen:'France',
+          sub:'Seleção Francesa',       suben:'France National Team',
+          cat:'selecoes', feat:false, league:'Seleções',
+          imgs:[{i:'884a641817',e:'jpeg'},{i:'e3c9fc660b',e:'jpeg'}]},
+  {id:22, name:'Portugal',              nameen:'Portugal',
+          sub:'Seleção Portuguesa',     suben:'Portugal National Team',
+          cat:'selecoes', feat:false, league:'Seleções',
+          imgs:[{i:'ffae7515d9',e:'jpeg'},{i:'bafec2b787',e:'jpeg'}]},
+  {id:27, name:'Inglaterra',            nameen:'England',
+          sub:'Seleção Inglesa',        suben:'England National Team',
+          cat:'selecoes', feat:false, league:'Seleções',
+          imgs:[{i:'c3d2f15ca5',e:'jpeg'},{i:'2bd8329024',e:'jpeg'}]},
+  {id:28, name:'Alemanha',              nameen:'Germany',
+          sub:'Seleção Alemã',          suben:'Germany National Team',
+          cat:'selecoes', feat:false, league:'Seleções',
+          imgs:[{i:'d1a8773900',e:'jpeg'},{i:'f06d93abda',e:'jpeg'}]},
+  {id:29, name:'Holanda',               nameen:'Netherlands',
+          sub:'Seleção Holandesa',      suben:'Netherlands National Team',
+          cat:'selecoes', feat:false, league:'Seleções',
+          imgs:[{i:'50fa0bfe3c',e:'jpeg'},{i:'25874d1123',e:'jpeg'}]},
+  {id:30, name:'Itália',                nameen:'Italy',
+          sub:'Seleção Italiana',       suben:'Italy National Team',
+          cat:'selecoes', feat:false, league:'Seleções',
+          imgs:[{i:'b35a7fddcc',e:'jpeg'},{i:'124bfef818',e:'jpeg'}]},
+  {id:31, name:'Espanha',               nameen:'Spain',
+          sub:'Seleção Espanhola',      suben:'Spain National Team',
+          cat:'selecoes', feat:false, league:'Seleções',
+          imgs:[{i:'ac0a314df8',e:'jpeg'},{i:'fb3c56d639',e:'jpeg'},{i:'a959f479e9',e:'jpeg'},{i:'f1d5f90b74',e:'jpeg'},{i:'03d68436f7',e:'jpeg'}]},
+  {id:32, name:'Coreia do Sul',         nameen:'South Korea',
+          sub:'Seleção Coreana',        suben:'South Korea National Team',
+          cat:'selecoes', feat:false, league:'Seleções',
+          imgs:[{i:'e0e5aca979',e:'jpeg'},{i:'5da38f5dfe',e:'jpeg'}]},
+  {id:33, name:'Japão',                 nameen:'Japan',
+          sub:'Seleção Japonesa',       suben:'Japan National Team',
+          cat:'selecoes', feat:false, league:'Seleções',
+          imgs:[{i:'2b9b0fd7e0',e:'jpeg'},{i:'17c439a7ca',e:'jpeg'}]},
+  {id:34, name:'México',                nameen:'Mexico',
+          sub:'Seleção Mexicana',       suben:'Mexico National Team',
+          cat:'selecoes', feat:false, league:'Seleções',
+          imgs:[{i:'4be5325162',e:'jpeg'},{i:'0488688737',e:'jpeg'},{i:'87ae7cac3f',e:'jpeg'}]},
+  {id:35, name:'Estados Unidos',        nameen:'USA',
+          sub:'Seleção Americana',      suben:'USA National Team',
+          cat:'selecoes', feat:false, league:'Seleções',
+          imgs:[{i:'17bc4a0ae4',e:'jpeg'},{i:'8dbabfbf5f',e:'jpeg'}]},
+  {id:59, name:'Colômbia',              nameen:'Colombia',
+          sub:'Seleção Colombiana',     suben:'Colombia National Team',
+          cat:'selecoes', feat:false, league:'Seleções',
+          imgs:[{i:'cd4f94a07e',e:'jpeg'},{i:'d299747c9c',e:'jpeg'}]},
+  {id:60, name:'Canadá',                nameen:'Canada',
+          sub:'Seleção Canadense',      suben:'Canada National Team',
+          cat:'selecoes', feat:false, league:'Seleções',
+          imgs:[{i:'b0615303ae',e:'jpeg'},{i:'5d61ad94c6',e:'jpeg'}]},
+  {id:61, name:'Gana',                  nameen:'Ghana',
+          sub:'Seleção de Gana',        suben:'Ghana National Team',
+          cat:'selecoes', feat:false, league:'Seleções',
+          imgs:[{i:'9543b047b9',e:'jpeg'},{i:'678b43c4b3',e:'jpeg'}]},
+  {id:62, name:'Cabo Verde',            nameen:'Cape Verde',
+          sub:'Seleção de Cabo Verde',  suben:'Cape Verde National Team',
+          cat:'selecoes', feat:false, league:'Seleções',
+          imgs:[{i:'36a402496c',e:'jpeg'},{i:'ecf73d0b44',e:'jpeg'}]},
+  {id:63, name:'Jordânia',              nameen:'Jordan',
+          sub:'Seleção da Jordânia',    suben:'Jordan National Team',
+          cat:'selecoes', feat:false, league:'Seleções',
+          imgs:[{i:'21bd44b6f5',e:'png'},{i:'82a9395768',e:'png'}]},
+  {id:64, name:'Senegal',               nameen:'Senegal',
+          sub:'Seleção de Senegal',     suben:'Senegal National Team',
+          cat:'selecoes', feat:false, league:'Seleções',
+          imgs:[{i:'23b6de5a85',e:'jpeg'},{i:'7d30c28fa7',e:'jpeg'}]},
+  {id:65, name:'Equador',               nameen:'Ecuador',
+          sub:'Seleção do Equador',     suben:'Ecuador National Team',
+          cat:'selecoes', feat:false, league:'Seleções',
+          imgs:[{i:'f097f15e',e:'jpg'},{i:'e401b783',e:'jpg'}]},
+  {id:66, name:'Nigéria',               nameen:'Nigeria',
+          sub:'Seleção da Nigéria',     suben:'Nigeria National Team',
+          cat:'selecoes', feat:false, league:'Seleções',
+          imgs:[{i:'da986400a1',e:'jpeg'},{i:'6024de4f6f',e:'jpeg'}]},
+
+  // ── Retrô ────────────────────────────────────────────────────────
+  {id:23, name:'Barcelona Retrô',       nameen:'Barcelona Retro',
+          sub:'Edição Especial Retrô',  suben:'Special Retro Edition',
+          cat:'retro', feat:true, league:'Retrô',
+          imgs:[{i:'3bdd762ab0',e:'png'}]},
+  {id:24, name:'Manchester United Retrô',nameen:'Manchester United Retro',
+          sub:'Edição Especial Retrô',  suben:'Special Retro Edition',
+          cat:'retro', feat:false, league:'Retrô',
+          imgs:[{i:'02dc33646b',e:'jpeg'}]},
+
+  // ── Kids ─────────────────────────────────────────────────────────
+  {id:25, name:'Camiseta Infantil',     nameen:'Kids Jersey',
+          sub:'Vários Times — Coleção Kids', suben:'Various Clubs — Kids Collection',
+          cat:'kids', feat:false, league:'Kids',
+          imgs:[{i:'8cdaf5ef',e:'jpeg'}]},
+
+  // ── Kits / Jaquetas ──────────────────────────────────────────────
+  {id:26, name:'Agasalho Windbreaker',  nameen:'Windbreaker Training Kit',
+          sub:'Jaqueta Training Suit',  suben:'Training Suit Jacket',
+          cat:'kits', feat:false, league:'Kits',
+          imgs:[{i:'85d0a0c6',e:'jpeg'}]},
+];
+
+/* ── NOVOS PRODUTOS DO ADMIN — apenas IDs que não existem no catálogo base ── */
+(function loadNewAdminProducts(){
+  try {
+    const ovr = JSON.parse(localStorage.getItem('nineTeamOverrides') || '{}');
+    const imgStore = JSON.parse(localStorage.getItem('nineTeamImages') || '{}');
+    Object.entries(ovr).forEach(([id, data]) => {
+      const numId = +id;
+      // ignora se já existe no catálogo base
+      if(P.find(p => p.id === numId)) return;
+      // resolve imagens: troca {local:key} por {url: base64}
+      const imgs = (data.imgs || []).map(ph => {
+        if(ph.local && imgStore[ph.local]) return { url: imgStore[ph.local], i:'', e:'' };
+        return ph;
+      });
+      P.push({ ...data, id: numId, imgs });
+    });
+  } catch(e) { /* silently ignore */ }
+})();
+
+const IG_HANDLE = '9teamstore';
+let lang      = 'pt';
+let activeCat = 'all';
+let searchQ   = '';
+let currentPD = null;   // produto aberto no modal
+let galleryIdx = 0;     // índice da foto atual
+let selectedSize = 'L';
+
+/* ── translations ── */
+const T = {
+  pt:{
+    hero_eyebrow: 'Camisetas Premium',
+    hero_title:   'CAMISETAS PREMIUM',
+    hero_sub:     'Qual vai ser a sua?',
+    stat_products:'Produtos',
+    stat_leagues: 'Ligas',
+    stat_ship:    'Entrega Rápida',
+    cat_all:      'Todos',
+    cat_times:    'Times',
+    cat_selecoes: 'Seleções',
+    cat_retro:    'Retrô',
+    cat_kids:     'Kids',
+    cat_kits:     'Kits & Jaquetas',
+    search_ph:    'Buscar camiseta...',
+    badge:        '⭐ DESTAQUE',
+    buy:          'VER DETALHES',
+    quality_title:'Qualidade Premium',
+    q1:           'Tecido tailandês — igual ao original oficial',
+    q2:           'Bordado e silk screen de alta definição',
+    q3:           'Numeração e nome personalizados',
+    q4:           'Disponível tamanhos S ao XXL',
+    size_label:   'Tamanho:',
+    buy_btn:      '📲 PEDIR VIA INSTAGRAM',
+    buy_hint:     'Vamos copiar o pedido e abrir o Instagram pra você',
+    modal_title:  'Quase lá!',
+    modal_sub:    'Copiamos a mensagem. É só colar no Instagram!',
+    modal_copy:   'Mensagem copiada para a área de transferência',
+    modal_ig:     '📲 Abrir Instagram',
+    modal_close:  'Fechar',
+    footer_txt:   'Camisetas premium com entrega rápida',
+    result:n=>`${n} produto${n!==1?'s':''} encontrado${n!==1?'s':''}`,
+    empty:        'NENHUM PRODUTO ENCONTRADO',
+    msg:(nm,sb,sz)=>`Olá! Gostaria de pedir:\n\n🎽 ${nm}\n📋 ${sb}\n📏 Tamanho: ${sz}\n\nPode me passar mais informações? 😊`,
+  },
+  en:{
+    hero_eyebrow: 'Premium Jerseys',
+    hero_title:   'PREMIUM JERSEYS',
+    hero_sub:     'Which one will be yours?',
+    stat_products:'Products',
+    stat_leagues: 'Leagues',
+    stat_ship:    'Fast Delivery',
+    cat_all:      'All',
+    cat_times:    'Clubs',
+    cat_selecoes: 'National Teams',
+    cat_retro:    'Retro',
+    cat_kids:     'Kids',
+    cat_kits:     'Kits & Jackets',
+    search_ph:    'Search jersey...',
+    badge:        '⭐ FEATURED',
+    buy:          'VIEW DETAILS',
+    quality_title:'Premium Quality',
+    q1:           'Thai fabric — same as official jersey',
+    q2:           'High-definition embroidery & screen print',
+    q3:           'Custom name and number available',
+    q4:           'Available sizes S to XXL',
+    size_label:   'Size:',
+    buy_btn:      '📲 ORDER VIA INSTAGRAM',
+    buy_hint:     'We\'ll copy your order and open Instagram for you',
+    modal_title:  'Almost there!',
+    modal_sub:    'Message copied! Just paste it on Instagram.',
+    modal_copy:   'Message copied to clipboard',
+    modal_ig:     '📲 Open Instagram',
+    modal_close:  'Close',
+    footer_txt:   'Premium jerseys — fast delivery',
+    result:n=>`${n} product${n!==1?'s':''} found`,
+    empty:        'NO PRODUCTS FOUND',
+    msg:(nm,sb,sz)=>`Hi! I'd like to order:\n\n🎽 ${nm}\n📋 ${sb}\n📏 Size: ${sz}\n\nCan you send me more info? 😊`,
+  }
+};
+
+/* ── IMAGE HELPERS — CDN primeiro, local como fallback ── */
+function primaryImg(p){ return p.imgs[0] }
+function cdnUrl(ph){
+  if(!ph) return '';
+  if(ph.url) return ph.url; // URL direta ou base64 (produtos do admin)
+  return `https://photo.yupoo.com/194939/${ph.i}/medium.${ph.e}`;
+}
+function imgUrl(p, idx=0){
+  const ph = p.imgs[idx] || p.imgs[0];
+  return cdnUrl(ph);
+}
+function imgUrlFallback(p, idx=0){
+  const ph = p.imgs[idx] || p.imgs[0];
+  if(!ph) return '';
+  if(ph.url) return ph.url; // sem fallback local para URL/base64
+  return `imgs/${p.id}_${idx}.${ph.e}`;
+}
+function imgFallback(el, pid, idx){
+  el.onerror = null;
+  const p = P.find(x=>x.id===pid);
+  if(!p) return;
+  const ph = p.imgs[idx||0] || p.imgs[0];
+  if(!ph || ph.url) return; // URL/base64 não tem fallback local
+  el.src = `imgs/${p.id}_${idx||0}.${ph.e}`;
+}
+/* Cover (card) fallback — se a imagem LOCAL falhar, tenta o Yupoo */
+function coverFallback(el, pid){
+  el.onerror = null;
+  const p = P.find(x=>x.id===pid);
+  if(!p) return;
+  const ph = p.imgs[0];
+  if(!ph || ph.url) return; // URL/base64 não tem reserva
+  el.removeAttribute('referrerpolicy');
+  el.src = `https://photo.yupoo.com/194939/${ph.i}/medium.${ph.e}`;
+}
+/* Capa: usa a imagem LOCAL primeiro (confiável na hospedagem) */
+function coverUrl(p){
+  const ph = p.imgs[0];
+  if(!ph) return '';
+  if(ph.url) return ph.url;
+  return `imgs/${p.id}.${ph.e}`;
+}
+
+/* ── RENDER GRID ── */
+function render(){
+  const t = T[lang];
+  const q = searchQ.trim().toLowerCase();
+
+  const items = P.filter(p=>{
+    const inCat = activeCat==='all' || p.cat===activeCat;
+    const nm = (lang==='pt'?p.name:p.nameen).toLowerCase();
+    const sb = (lang==='pt'?p.sub:p.suben).toLowerCase();
+    const inQ = !q || nm.includes(q) || sb.includes(q) || p.league.toLowerCase().includes(q);
+    return inCat && inQ;
+  });
+
+  // update counts
+  const countEl = {
+    all:      document.getElementById('cntAll'),
+    times:    document.getElementById('cntTimes'),
+    selecoes: document.getElementById('cntSelecoes'),
+    retro:    document.getElementById('cntRetro'),
+    kids:     document.getElementById('cntKids'),
+    kits:     document.getElementById('cntKits'),
+  };
+  const cats = ['all','times','selecoes','retro','kids','kits'];
+  cats.forEach(cat=>{
+    const el = countEl[cat];
+    if(el) el.textContent = cat==='all' ? P.length : P.filter(p=>p.cat===cat).length;
+  });
+  document.getElementById('statProducts').textContent = P.length;
+
+  const rc = document.getElementById('resultCount');
+  if(rc) rc.textContent = t.result(items.length);
+
+  const grid = document.getElementById('grid');
+  if(!items.length){
+    grid.innerHTML = `<div class="empty"><span class="empty-icon"><svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span><p>${t.empty}</p></div>`;
+    return;
+  }
+
+  grid.innerHTML = items.map((p,i)=>{
+    const nm  = lang==='pt'?p.name:p.nameen;
+    const sub = lang==='pt'?p.sub:p.suben;
+    const delay = Math.min(i,12)*35;
+    const hasMulti = p.imgs.length > 1;
+    return `
+    <div class="card" style="animation-delay:${delay}ms" onclick="openPD(${p.id})">
+      <div class="card-img-wrap">
+        <img class="card-img skel"
+             src="${coverUrl(p)}"
+             referrerpolicy="no-referrer"
+             alt="${nm}"
+             loading="lazy"
+             onload="this.classList.remove('skel')"
+             onerror="coverFallback(this,${p.id});this.classList.remove('skel')"/>
+        ${p.feat?`<span class="badge">${t.badge}</span>`:''}
+        ${hasMulti?`<span class="badge" style="top:auto;bottom:12px;background:rgba(10,10,28,.75);box-shadow:none;border:1px solid rgba(255,255,255,.15);">📷 ${p.imgs.length} fotos</span>`:''}
+        <div class="card-overlay"></div>
+      </div>
+      <div class="card-body">
+        ${p.league?`<span class="league-tag">${p.league}</span>`:''}
+        <div class="card-name">${nm}</div>
+        <div class="card-sub">${sub}</div>
+        <button class="buy-btn" onclick="event.stopPropagation();openPD(${p.id})">${t.buy}</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+/* ── PRODUCT DETAIL MODAL ── */
+function openPD(id){
+  const p = P.find(x=>x.id===id);
+  if(!p) return;
+  currentPD  = p;
+  galleryIdx = 0;
+  selectedSize = 'L';
+
+  const t  = T[lang];
+  const nm = lang==='pt'?p.name:p.nameen;
+  const sb = lang==='pt'?p.sub:p.suben;
+
+  document.getElementById('pdLeague').textContent = p.league||'';
+  document.getElementById('pdName').textContent   = nm;
+  document.getElementById('pdSub').textContent    = sb;
+
+  // reset size buttons
+  document.querySelectorAll('.size-btn').forEach(b=>{
+    b.classList.toggle('active', b.textContent==='L');
+  });
+  document.getElementById('selectedSizeLabel').textContent = 'L';
+
+  // build gallery
+  buildGallery(p);
+
+  document.getElementById('pdOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closePD(){
+  document.getElementById('pdOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+function pdOverlayClick(e){
+  if(e.target===document.getElementById('pdOverlay')) closePD();
+}
+
+function buildGallery(p){
+  const wrap    = document.getElementById('galleryMain');
+  const mainImg = document.getElementById('galleryMain').querySelector('img') || document.getElementById('galleryMain');
+  const thumbs  = document.getElementById('galleryThumbs');
+  const counter = document.getElementById('galleryCounter');
+  const prevBtn = document.getElementById('galleryPrev');
+  const nextBtn = document.getElementById('galleryNext');
+
+  // set main image
+  setGalleryImage(0);
+
+  // arrows visibility
+  const multi = p.imgs.length > 1;
+  prevBtn.toggleAttribute('hidden', !multi);
+  nextBtn.toggleAttribute('hidden', !multi);
+  counter.style.display = multi ? 'block' : 'none';
+
+  // thumbnails
+  thumbs.style.display = multi ? 'flex' : 'none';
+  if(multi){
+    thumbs.innerHTML = p.imgs.map((ph,i)=>`
+      <img class="gallery-thumb${i===0?' active':''}"
+           src="${ph.url?ph.url:'imgs/'+p.id+'_'+i+'.'+(ph.e||'jpeg')}"
+           alt="Foto ${i+1}"
+           onclick="setGalleryImage(${i})"
+           onerror="this.onerror=null;${ph.url?'':'this.src=\'https://photo.yupoo.com/194939/'+ph.i+'/medium.'+(ph.e||'jpeg')+'\'';}"/>`
+    ).join('');
+  }
+}
+
+function setGalleryImage(idx){
+  if(!currentPD) return;
+  const p  = currentPD;
+  galleryIdx = Math.max(0, Math.min(idx, p.imgs.length-1));
+  const ph = p.imgs[galleryIdx];
+  const mainImg = document.getElementById('galleryMain');
+
+  // fade
+  mainImg.style.opacity = '0.4';
+  setTimeout(()=>{ mainImg.style.opacity = '1'; }, 200);
+
+  mainImg.src = ph.url ? ph.url : `imgs/${p.id}_${galleryIdx}.${ph.e||'jpeg'}`;
+  mainImg.onerror = function(){
+    this.onerror = null;
+    if(!ph.url) this.src = `https://photo.yupoo.com/194939/${ph.i}/medium.${ph.e||'jpeg'}`;
+  };
+  mainImg.alt = (lang==='pt'?p.name:p.nameen) + ` — foto ${galleryIdx+1}`;
+
+  // counter
+  document.getElementById('galleryCounter').textContent = `${galleryIdx+1} / ${p.imgs.length}`;
+
+  // active thumb
+  document.querySelectorAll('.gallery-thumb').forEach((t,i)=>{
+    t.classList.toggle('active', i===galleryIdx);
+  });
+}
+
+function galleryMove(dir){
+  if(!currentPD) return;
+  const next = (galleryIdx + dir + currentPD.imgs.length) % currentPD.imgs.length;
+  setGalleryImage(next);
+}
+function galleryNext(){ galleryMove(1) }
+function galleryPrev(){ galleryMove(-1) }
+
+/* ── SIZE SELECTION ── */
+function selectSize(btn, size){
+  selectedSize = size;
+  document.querySelectorAll('.size-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('selectedSizeLabel').textContent = size;
+}
+
+/* ── BUY FLOW ── */
+function handleBuyFromModal(){
+  window.open(`https://ig.me/m/${IG_HANDLE}`,'_blank');
+  closePD();
+}
+
+/* ── FILTER / SEARCH ── */
+function setCategory(cat){
+  activeCat = cat;
+  document.querySelectorAll('.cat-btn').forEach(b=>{
+    b.classList.toggle('active', b.dataset.cat===cat);
+  });
+  render();
+}
+function filterProducts(){
+  searchQ = document.getElementById('searchInput').value;
+  render();
+}
+
+/* ── LANGUAGE ── */
+function toggleLang(){
+  lang = lang==='pt'?'en':'pt';
+  document.documentElement.lang = lang==='pt'?'pt-BR':'en-AU';
+  document.getElementById('langBtn').textContent = lang==='pt'?'🇦🇺 EN':'🇧🇷 PT';
+  applyTranslations();
+  render();
+  if(currentPD) openPD(currentPD.id);
+}
+function applyTranslations(){
+  const t = T[lang];
+  document.querySelectorAll('[data-t]').forEach(el=>{
+    const v = t[el.dataset.t];
+    if(typeof v==='string') el.textContent = v;
+  });
+  const si = document.getElementById('searchInput');
+  if(si) si.placeholder = t.search_ph;
+}
+
+/* ── KEYBOARD ── */
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape'){
+    if(document.getElementById('copyOverlay').classList.contains('open')) closeCopy();
+    else closePD();
+  }
+  if(document.getElementById('pdOverlay').classList.contains('open')){
+    if(e.key==='ArrowRight') galleryMove(1);
+    if(e.key==='ArrowLeft')  galleryMove(-1);
+  }
+});
+
+/* ── SWIPE SUPPORT ── */
+let touchStartX = 0;
+document.getElementById('galleryMain').addEventListener('touchstart',e=>{
+  touchStartX = e.touches[0].clientX;
+},{passive:true});
+document.getElementById('galleryMain').addEventListener('touchend',e=>{
+  const dx = e.changedTouches[0].clientX - touchStartX;
+  if(Math.abs(dx) > 40) galleryMove(dx < 0 ? 1 : -1);
+},{passive:true});
+
+/* ── SCROLL TO TOP ── */
+window.addEventListener('scroll',()=>{
+  const btn = document.getElementById('scrollTop');
+  if(btn) btn.classList.toggle('visible', window.scrollY > 400);
+},{passive:true});
+
+/* ── INIT ── */
+render();
+</script>
+</body>
+</html>
