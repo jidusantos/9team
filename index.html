@@ -156,7 +156,7 @@ header{
 .hero-copy{flex:1.1;text-align:left;min-width:0}
 .hero-showcase{flex:1;position:relative;height:330px;display:flex;align-items:center;justify-content:center}
 .hero-showcase .jersey{
-  position:absolute;width:225px;aspect-ratio:3/4;object-fit:cover;
+  position:absolute;width:225px;aspect-ratio:3/4;object-fit:contain;
   border-radius:14px;background:#fff;border:4px solid #fff;
   box-shadow:0 24px 52px rgba(0,0,0,.40);
 }
@@ -293,7 +293,7 @@ header{
 .card-img-wrap{position:relative;overflow:hidden}
 .card-img{
   width:100%;aspect-ratio:3/4;
-  object-fit:cover;
+  object-fit:contain;
   display:block;
   transition:transform .4s;
 }
@@ -436,7 +436,7 @@ header{
 }
 .gallery-main-img{
   width:100%;height:100%;
-  object-fit:cover;
+  object-fit:contain;
   display:block;
   transition:opacity .25s;
   cursor:zoom-in;
@@ -475,7 +475,7 @@ header{
 .gallery-thumbs::-webkit-scrollbar{display:none}
 .gallery-thumb{
   width:56px;height:72px;flex-shrink:0;
-  object-fit:cover;
+  object-fit:contain;
   border-radius:8px;
   cursor:pointer;
   border:2px solid transparent;
@@ -576,6 +576,34 @@ header{
 /* ═══════════════════════════════════════
    COPY MODAL (after buy click)
 ═══════════════════════════════════════ */
+/* ── ZOOM LIGHTBOX ─────────────────── */
+.zoom-overlay{
+  position:fixed;inset:0;z-index:500;
+  background:rgba(0,0,0,.94);
+  display:flex;align-items:center;justify-content:center;
+  opacity:0;pointer-events:none;
+  transition:opacity .25s;
+  padding:16px;
+  cursor:zoom-out;
+}
+.zoom-overlay.open{opacity:1;pointer-events:auto}
+.zoom-img{
+  max-width:100%;max-height:92vh;
+  object-fit:contain;
+  border-radius:8px;
+  box-shadow:0 20px 80px rgba(0,0,0,.8);
+  cursor:default;
+}
+.zoom-close{
+  position:absolute;top:14px;right:14px;
+  background:rgba(255,255,255,.12);
+  border:1px solid rgba(255,255,255,.2);
+  color:#fff;font-size:20px;
+  width:40px;height:40px;border-radius:50%;
+  cursor:pointer;display:flex;align-items:center;justify-content:center;
+  transition:background .2s;
+}
+.zoom-close:hover{background:rgba(255,255,255,.25)}
 .copy-overlay{
   position:fixed;inset:0;z-index:300;
   background:rgba(5,8,20,0.85);
@@ -654,7 +682,7 @@ footer{border-top:1px solid var(--border);background:var(--bg2);padding:52px 32p
 @media(max-width:900px){
   .hero-stat{padding:0 20px}
   .pd-modal{flex-direction:column;max-height:96vh;overflow-y:auto}
-  .pd-gallery{width:100%;max-height:55vw;min-height:260px}
+  .pd-gallery{width:100%;max-height:52vh;min-height:260px}
   .gallery-main{min-height:200px}
   .pd-info{padding:22px 20px 24px}
 }
@@ -687,7 +715,7 @@ footer{border-top:1px solid var(--border);background:var(--bg2);padding:52px 32p
   .scroll-top{bottom:18px;right:14px;width:40px;height:40px}
   /* Modal */
   .pd-modal{border-radius:18px}
-  .pd-gallery{max-height:58vw;min-height:220px}
+  .pd-gallery{max-height:55vh;min-height:240px}
   .gallery-arrow{width:34px;height:34px;font-size:16px}
   .pd-info{padding:18px 16px 20px}
   .pd-name{font-size:clamp(22px,6vw,30px)}
@@ -837,7 +865,7 @@ footer{border-top:1px solid var(--border);background:var(--bg2);padding:52px 32p
     <!-- Gallery -->
     <div class="pd-gallery">
       <div class="gallery-main">
-        <img id="galleryMain" class="gallery-main-img" src="" alt="" onclick="galleryNext()"/>
+        <img id="galleryMain" class="gallery-main-img" src="" alt="" onclick="openZoom()"/>
         <button class="gallery-arrow prev" id="galleryPrev" onclick="galleryMove(-1)">&#8249;</button>
         <button class="gallery-arrow next" id="galleryNext" onclick="galleryMove(1)">&#8250;</button>
         <div class="gallery-counter" id="galleryCounter">1 / 1</div>
@@ -881,6 +909,11 @@ footer{border-top:1px solid var(--border);background:var(--bg2);padding:52px 32p
 </div>
 
 <!-- ═══ COPY/CONFIRM MODAL ═══ -->
+
+<div id="zoomOverlay" class="zoom-overlay" onclick="closeZoom()">
+  <button class="zoom-close" onclick="closeZoom()">&#10005;</button>
+  <img id="zoomImg" class="zoom-img" src="" alt=""/>
+</div>
 <div id="copyOverlay" class="copy-overlay" onclick="copyOverlayClick(event)">
   <div class="copy-modal">
     <div class="copy-modal-bar"></div>
@@ -931,11 +964,11 @@ const P = [
           imgs:[{i:'301c46b24b',e:'jpeg'},{i:'e91137c6e1',e:'jpeg'}]},
   {id:2,  name:'Palmeiras',             nameen:'Palmeiras',
           sub:'Camisa Premium 2025',    suben:'Premium Jersey 2025',
-          cat:'times', feat:true,  league:'Série A',
+          cat:'times', feat:false,  league:'Série A',
           imgs:[{i:'6e19381355',e:'jpeg'},{i:'e37b2dd9bd',e:'jpeg'}]},
   {id:3,  name:'Corinthians',           nameen:'Corinthians',
           sub:'Camisa Premium 2025',    suben:'Premium Jersey 2025',
-          cat:'times', feat:false, league:'Série A',
+          cat:'times', feat:true,  league:'Série A',
           imgs:[{i:'c6556b1b1f',e:'jpeg'},{i:'d972416559',e:'jpeg'},{i:'c3ce20def4',e:'jpeg'},{i:'643a94f7d6',e:'jpeg'},{i:'2c4bfe6006',e:'jpeg'}]},
   {id:4,  name:'Fluminense',            nameen:'Fluminense',
           sub:'Camisa Premium 2025',    suben:'Premium Jersey 2025',
@@ -2007,6 +2040,16 @@ function openPD(id){
 function closePD(){
   document.getElementById('pdOverlay').classList.remove('open');
   document.body.style.overflow = '';
+}
+function openZoom(){
+  const src = document.getElementById("galleryMain").src;
+  if(!src) return;
+  document.getElementById("zoomImg").src = src;
+  document.getElementById("zoomOverlay").classList.add("open");
+}
+function closeZoom(){
+  document.getElementById("zoomOverlay").classList.remove("open");
+  document.getElementById("zoomImg").src = "";
 }
 function pdOverlayClick(e){
   if(e.target===document.getElementById('pdOverlay')) closePD();
