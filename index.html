@@ -659,26 +659,59 @@ footer{border-top:1px solid var(--border);background:var(--bg2);padding:52px 32p
   .pd-info{padding:22px 20px 24px}
 }
 @media(max-width:640px){
-  header{padding:0 16px}
-  .header-search{display:none}
-  .hero{padding:52px 16px 44px}
-  .hero-stat{padding:0 14px}
-  .stat-num{font-size:24px}
-  .filter-bar-wrap{padding:0 12px}
-  .section{padding:20px 14px 56px}
-  .grid{grid-template-columns:repeat(2,1fr);gap:12px}
-  .card-name{font-size:17px}
-  .scroll-top{bottom:20px;right:16px;width:40px;height:40px}
+  /* Header — search desce para segunda linha */
+  header{padding:0 14px}
+  .header-inner{flex-wrap:wrap;height:auto;padding:10px 0 8px;gap:6px 0;align-items:center}
+  .logo{flex:1;font-size:22px}
+  .header-right{flex-shrink:0;gap:8px}
+  .lang-btn{display:none}
+  .ig-btn{font-size:11px;padding:8px 14px;letter-spacing:1px}
+  .header-search{display:flex;order:3;flex:0 0 100%;max-width:100%;margin-top:2px}
+  .header-search input{padding:9px 14px 9px 38px;font-size:14px}
+  /* Filter bar — ajuste para header mais alto (~112px) */
+  .filter-bar-wrap{top:112px;padding:0 12px}
+  .cat-btn{font-size:12px;padding:7px 14px}
+  /* Hero */
+  .hero{padding:36px 16px 32px}
+  .hero-stat{padding:0 12px}
+  .stat-num{font-size:22px}
+  .stat-label{font-size:9px;letter-spacing:2px}
+  /* Section */
+  .section{padding:18px 12px 52px}
+  /* Grid — 2 colunas */
+  .grid{grid-template-columns:repeat(2,1fr);gap:10px}
+  .card-name{font-size:16px}
+  .card-sub{font-size:11px;margin-bottom:10px}
+  .buy-btn{font-size:11px;padding:9px 0;letter-spacing:1.5px}
+  /* Scroll top */
+  .scroll-top{bottom:18px;right:14px;width:40px;height:40px}
+  /* Modal */
   .pd-modal{border-radius:18px}
-  .pd-gallery{max-height:62vw}
-  .copy-modal{padding:22px}
+  .pd-gallery{max-height:58vw;min-height:220px}
+  .gallery-arrow{width:34px;height:34px;font-size:16px}
+  .pd-info{padding:18px 16px 20px}
+  .pd-name{font-size:clamp(22px,6vw,30px)}
+  .sizes{gap:5px}
+  .size-btn{min-width:40px;height:40px;font-size:13px}
+  .pd-buy-btn{padding:13px 0;font-size:14px}
+  /* Copy modal */
+  .copy-modal{padding:20px}
   .copy-actions{flex-direction:column}
-  footer{padding:40px 16px 28px}
+  /* Footer */
+  footer{padding:36px 16px 24px}
 }
 @media(max-width:380px){
-  .grid{gap:10px}
-  .card-name{font-size:15px}
-  .card-body{padding:12px 12px 14px}
+  .header-inner{padding:8px 0 6px}
+  .ig-btn{font-size:10px;padding:7px 12px}
+  .grid{gap:8px}
+  .card-name{font-size:14px}
+  .card-sub{font-size:10px}
+  .card-body{padding:10px 10px 12px}
+  .buy-btn{font-size:10px;padding:8px 0}
+  .hero-showcase{height:200px}
+  .hero-showcase .jersey{width:130px}
+  .hero-showcase .j1{transform:rotate(-9deg) translateX(-76px)}
+  .hero-showcase .j3{transform:rotate(9deg) translateX(76px)}
 }
 /* ===== Tema claro (off-white) — ajustes de superfície ===== */
 .header-search input{background:#fff;border-color:var(--border)}
@@ -751,7 +784,7 @@ footer{border-top:1px solid var(--border);background:var(--bg2);padding:52px 32p
     <div class="hero-showcase">
       <img class="jersey j1" src="imgs/1.jpeg"  alt="Flamengo"  onerror="this.style.display='none'">
       <img class="jersey j2" src="imgs/19.jpeg" alt="Brasil"    onerror="this.style.display='none'">
-      <img class="jersey j3" src="imgs/2.jpeg"  alt="Palmeiras" onerror="this.style.display='none'">
+      <img class="jersey j3" src="imgs/3.jpeg"  alt="Corinthians" onerror="this.style.display='none'">
       <svg class="hero-ball b1" viewBox="0 0 64 64" aria-hidden="true">
         <circle cx="32" cy="32" r="30" fill="#fff" stroke="#16357A" stroke-width="2"/>
         <polygon points="32,17 42,25 38,37 26,37 22,25" fill="#16357A"/>
