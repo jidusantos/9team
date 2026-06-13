@@ -813,6 +813,54 @@ download 205  010e09f0 jpg 0
 download 205  009597a1 jpg 1
 report  205  "Flamengo VIII" jpg
 
+download 206  9681bd5c jpg 0
+download 206  1c21f841 jpg 1
+download 206  3e0d18b9 jpg 2
+download 206  dc5b4135 jpg 3
+download 206  c982d7d1 jpg 4
+report  206  "Brasil Copa 2026" jpg
+download 207  ebe24dcd jpg 0
+download 207  9b76b2a3 jpg 1
+download 207  64ecff4c jpg 2
+download 207  c65cb3f4 jpg 3
+download 207  69b352c8 jpg 4
+report  207  "Argentina Copa 2026" jpg
+download 208  71139e10 jpg 0
+download 208  63b8d2f3 jpg 1
+download 208  94e5abe5 jpg 2
+download 208  0965698e jpg 3
+download 208  36c29dbf jpg 4
+report  208  "Espanha Copa 2026" jpg
+download 209  07bdf959 jpg 0
+download 209  b0f34ef2 jpg 1
+download 209  06077f85 jpg 2
+download 209  9bd028d5 jpg 3
+download 209  c70a9d6a jpg 4
+report  209  "Inglaterra Copa 2026" jpg
+download 210  f7f91763 jpg 0
+download 210  fc6b3278 jpg 1
+download 210  de0d7ae1 jpg 2
+download 210  9861d999 jpg 3
+download 210  91dc480a jpg 4
+report  210  "Japão Copa 2026" jpg
+download 211  dd4ef8d7 jpg 0
+download 211  4c8b436f jpg 1
+download 211  b73418b3 jpg 2
+download 211  281e3096 jpg 3
+download 211  54ea19f4 jpg 4
+report  211  "Colômbia Copa 2026" jpg
+download 212  292750bc jpg 0
+download 212  97447e47 jpg 1
+download 212  a6f93998 jpg 2
+download 212  b9a2f852 jpg 3
+download 212  6f21380a jpg 4
+report  212  "México Copa 2026" jpg
+download 213  433474f4 jpg 0
+download 213  0de1b43a jpg 1
+download 213  ef5d6e65 jpg 2
+download 213  5d4ea6a4 jpg 3
+download 213  550d65e3 jpg 4
+report  213  "Alemanha Copa 2026" jpg
 echo ""
 COUNT=$(ls imgs/*.jpeg imgs/*.jpg imgs/*.png 2>/dev/null | wc -l | tr -d ' ')
 echo "✅ Concluído! $COUNT imagens em imgs/"
